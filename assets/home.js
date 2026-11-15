@@ -1,7 +1,7 @@
 (function(){
 /* ====== EDIT THESE ====== */
-const PHOTO_URL="";                          // paste your photo link here, e.g. "https://example.com/me.jpg"
-const CONTACT_EMAIL="YOUR-EMAIL@example.com"; // your real email address
+const PHOTO_URL="https://ik.imagekit.io/c9crfmeez/Prathamesh-Profile-pic.png";     
+const CONTACT_EMAIL="prathameshchavan8652@gmail.com";
 /* ======================== */
 const calm=matchMedia('(prefers-reduced-motion: reduce)').matches,$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const mail=$('#mail');mail.textContent=CONTACT_EMAIL;$('#mailto').setAttribute('href','mailto:'+CONTACT_EMAIL);
