@@ -49,11 +49,12 @@
 <div class="pg" id="pg" aria-hidden="true"></div>
 <main id="main">
 <header class="hero" id="top" data-say="Hi, I'm your guide. Scroll and I'll show you around. You can grab me.">
+ <canvas id="hero3d" aria-hidden="true"></canvas>
  <div class="wrap hgrid">
   <div>
-   <p class="who">Prathamesh Chavan, full stack web developer, Mumbai</p>
-   <h1 id="h1">I build web apps people use.</h1>
-   <p class="sub">Frontend, backend and production sites for a living. Now I'm adding application security to the mix.</p>
+   <p class="who">Prathamesh Chavan &middot; Full stack developer, Mumbai</p>
+   <h1 id="h1">I build software that solves real problems.</h1>
+   <p class="sub">Full stack development for a living, production sites included. Now I'm adding application security and GRC to the mix.</p>
   </div>
   <div class="pcard" id="pcard"><img id="pimg" alt="Portrait of Prathamesh Chavan" referrerpolicy="no-referrer" decoding="async"><div class="ph"><b>PC</b></div></div>
  </div>
@@ -74,7 +75,7 @@
 
 <section id="about" data-say="The short version of my career so far."><div class="wrap"><h2>Experience</h2>
  <div class="nums"><div><b data-n="8" data-s="–9">8–9</b>production websites</div><div><b data-n="4">4</b>projects and ideas</div><div><b data-n="27">27</b>tools and technologies</div></div>
- <p class="sub" style="max-width:56ch;margin:1.6rem 0 0;opacity:.85">Full stack web developer at Mumbai Biocluster since August 2024, now adding application security to the mix.</p>
+ <p class="sub" style="max-width:56ch;margin:1.6rem 0 0;opacity:.85">Shipping production software at Mumbai Biocluster since August 2024, and counting. Now I'm layering application security and GRC on top of it.</p>
  <p style="margin-top:1.2rem"><a class="textlink" href="experience/">Full experience &rarr;</a></p></div></section>
 
 <section id="stack" data-say="A look at what I use day to day."><div class="wrap"><h2>What I work with</h2>
@@ -82,7 +83,7 @@
  <p style="margin-top:1.4rem"><a class="textlink" href="skills/">All skills &rarr;</a></p></div></section>
 
 <section id="lab" data-say="A peek at the security side."><div class="wrap"><h2>Security, hands-on</h2>
- <p class="sub" style="max-width:56ch;opacity:.85">I'm building application security fundamentals. Try a live demo: type an attack string into a login lookup, then compare a vulnerable query against a parameterized one.</p>
+ <p class="sub" style="max-width:56ch;opacity:.85">Security isn't just theory here &mdash; try it yourself. Type an attack string into a login lookup and watch a vulnerable query break, then see what a parameterized one does differently.</p>
  <p style="margin-top:1.2rem"><a class="textlink" href="security/">Try the demo &rarr;</a></p></div></section>
 
 <section id="writing" data-say="New: I write up what I learn. Have a read."><div class="wrap"><h2>Writing</h2>
@@ -98,5 +99,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 <script src="assets/home.js"></script>
+<script type="module" src="assets/hero3d.js"></script>
 </body>
 </html>

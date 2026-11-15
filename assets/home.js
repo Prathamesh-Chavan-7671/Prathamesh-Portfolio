@@ -9,12 +9,9 @@ const mail=$('#mail');mail.textContent=CONTACT_EMAIL;$('#mailto').setAttribute('
 if(!window.gsap||!window.ScrollTrigger||!window.Draggable)return;
 gsap.registerPlugin(ScrollTrigger,Draggable);
 
-/* navigation: hide on scroll down, mobile menu, progress */
-const nvin=$('#nvin');let menuOpen=false,navHidden=false;
+/* navigation: always visible, mobile menu, progress */
+const nvin=$('#nvin');let menuOpen=false;
 if(!calm){gsap.from(nvin,{y:-90,opacity:0,duration:.9,ease:'power3.out',delay:.2});
- ScrollTrigger.create({start:0,end:'max',onUpdate:self=>{const hide=self.direction===1&&self.scroll()>240&&!menuOpen;
-  if(hide!==navHidden){navHidden=hide;gsap.to(nvin,{yPercent:hide?-170:0,duration:.45,ease:'power3.out'});}}});
- nvin.addEventListener('focusin',()=>{if(navHidden){navHidden=false;gsap.to(nvin,{yPercent:0,duration:.3});}});
  gsap.to('#pg',{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.2}});}else $('#pg').remove();
 const burger=$('#burger'),menu=$('#menu');
 function setMenu(o){menuOpen=o;burger.setAttribute('aria-expanded',o);burger.setAttribute('aria-label',o?'Close menu':'Open menu');menu.setAttribute('aria-hidden',!o);
@@ -51,9 +48,15 @@ if(!calm){gsap.from('#h1 i',{yPercent:110,rotate:6,stagger:.09,duration:1,ease:'
  gsap.from('.who,.sub',{y:24,opacity:0,stagger:.2,duration:.8,delay:.5});gsap.from('#pcard',{y:120,rotate:-10,opacity:0,duration:1.2,ease:'back.out(1.4)',delay:.4});
  gsap.to('#h1',{yPercent:-12,scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:true}});}
 
-/* stacked cards */
+/* stacked cards, with a pointer-based 3D tilt */
 if(!calm)$$('.fc').forEach((c,i,a)=>{if(i<a.length-1)gsap.to(c,{scale:.93,opacity:.55,scrollTrigger:{trigger:a[i+1],start:'top 85%',end:'top 15%',scrub:true}});
- gsap.to(c.querySelectorAll('.art i'),{y:i=>(i%2?14:-14),rotate:i=>i*20,duration:2.5,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:.3});});
+ gsap.to(c.querySelectorAll('.art i'),{y:i=>(i%2?14:-14),rotate:i=>i*20,duration:2.5,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:.3});
+ c.addEventListener('pointermove',e=>{const k=c.getBoundingClientRect();gsap.to(c,{rotateX:-((e.clientY-k.top)/k.height-.5)*6,rotateY:((e.clientX-k.left)/k.width-.5)*6,transformPerspective:1000,duration:.5,ease:'power2.out'});});
+ c.addEventListener('pointerleave',()=>gsap.to(c,{rotateX:0,rotateY:0,duration:.7,ease:'elastic.out(1,.5)'}));});
+
+/* section teasers: slide up once as they enter view (never opacity:0, so content stays readable even if this never fires) */
+if(!calm)$$('#about .sub,#about .textlink,#stack .chips,#stack .textlink,#lab .sub,#lab .textlink,#writing .postcard,#writing .textlink,.contact .mail,.contact p').forEach(el=>
+ gsap.from(el,{scrollTrigger:{trigger:el,start:'top 92%',once:true},y:28,duration:.7,ease:'power3.out'}));
 
 /* scratch card */
 const cv=$('#cv'),sc=$('#sc'),ctx=cv.getContext('2d');let done=false,down=false,n=0;
