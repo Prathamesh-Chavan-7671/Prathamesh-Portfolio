@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#790B13">
+<title>NRG LIMS | Prathamesh Chavan</title>
+<meta name="description" content="NRG LIMS: a full lab-lifecycle platform I built for a nanomedicine research group — inventory, procurement, samples, safety, instruments, publications and more.">
+<meta name="author" content="Prathamesh Chavan">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://prathamesh-portfolio-silk.vercel.app/work/inventory-management-app/">
+<meta property="og:site_name" content="Prathamesh Chavan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NRG LIMS | Prathamesh Chavan">
+<meta property="og:description" content="NRG LIMS: a full lab-lifecycle platform I built for a nanomedicine research group — inventory, procurement, samples, safety, instruments, publications and more.">
+<meta property="og:url" content="https://prathamesh-portfolio-silk.vercel.app/work/inventory-management-app/">
+<meta property="og:image" content="https://prathamesh-portfolio-silk.vercel.app/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prathamesh Chavan, full stack web developer">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NRG LIMS | Prathamesh Chavan">
+<meta name="twitter:description" content="NRG LIMS: a full lab-lifecycle platform I built for a nanomedicine research group — inventory, procurement, samples, safety, instruments, publications and more.">
+<meta name="twitter:image" content="https://prathamesh-portfolio-silk.vercel.app/assets/og-default.png">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="nv" id="nv"><div class="nvin static" id="nvin">
+ <a class="brand" href="../../" aria-label="Prathamesh Chavan, home"><span class="mono">PC</span><span class="nm">Prathamesh Chavan</span></a>
+ <nav class="links" id="links" aria-label="Primary"><a href="../../#work">Work</a><a href="../../#about">Experience</a><a href="../../#stack">Skills</a><a href="../../#lab">Security</a><a href="../../writing/">Writing</a></nav>
+ <a class="go" href="../../#contact">Get in touch <span aria-hidden="true">&rarr;</span></a>
+ <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+</div></div>
+<div class="menu simple" id="menu" aria-hidden="true"><a href="../../#work">Work</a><a href="../../#about">Experience</a><a href="../../#stack">Skills</a><a href="../../#lab">Security</a><a href="../../writing/">Writing</a><a href="../../#contact">Get in touch</a></div>
+<div class="pg" id="pg" aria-hidden="true"></div>
+<main id="main"><article>
+<header class="ahero"><div class="wrap">
+ <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../../">Home</a></li><li><a href="../../#work">Work</a></li><li aria-current="page">NRG LIMS</li></ol></nav>
+ <h1>NRG LIMS</h1>
+ <p class="lede">A full lab-lifecycle platform I built for the Nanomedicine Research Group: inventory, procurement, purchase orders, vendor management, samples, safety incidents, instrument bookings, characterization, publications, thesis tracking, waste management, analytics, reporting and audit logs, behind one role-based system.</p>
+ <p class="meta"><span>Role: Solo</span><span>Status: Internal platform, in active use</span></p>
+ <ul class="tags" aria-label="Tech stack"><li>Next.js 16</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS</li><li>PostgreSQL + Prisma</li><li>Redis + BullMQ</li><li>AWS S3</li><li>Docker</li></ul>
+</div></header>
+<div class="abody"><div class="wrap alayout">
+ <div class="prose">
+<h2 id="problem">Problem</h2>
+<p>The research group needed one system to run the full lab lifecycle &mdash; inventory, procurement and purchase approvals, sample and safety tracking, instrument bookings, and the records that back publications and thesis work &mdash; instead of that living across separate tools and spreadsheets.</p>
+<h2 id="what-i-built">What I built</h2>
+<p>NRG LIMS end-to-end: every core lab workflow is implemented and RBAC-enforced, with a separate dashboard per role (PI, lab manager, researcher, student). It's built on Next.js 16 (App Router), React 19 and TypeScript, with PostgreSQL via Prisma for data, Redis and BullMQ for background jobs, AWS S3 for file storage, and runs on Docker Compose behind nginx on a self-hosted VPS.</p>
+<h3>Key features</h3>
+<ul>
+<li>Inventory, procurement and purchase orders &mdash; with a PI-approval gate and a three-quotation rule built into the workflow</li>
+<li>Vendor management and product/purchase requests</li>
+<li>Sample tracking and safety-incident logging</li>
+<li>Instrument bookings and characterization records</li>
+<li>Publication and thesis tracking, plus waste management</li>
+<li>Role-based dashboards, analytics, reporting and a full audit log</li>
+</ul>
+<h2 id="challenge">The hardest part</h2>
+<p>Getting authorization right across the edge. Next.js's edge middleware (<code>proxy.ts</code>) can only cheaply check that a session cookie exists before a page renders &mdash; it can't afford to check roles and permissions there. So the real access-control decision stays server-side, re-checked on every action through a session guard, rather than trusting the fast edge check. That keeps pages quick to load without weakening who can actually do what.</p>
+<h2 id="result">Result</h2>
+<p>In active internal use by the research group, with every core workflow implemented end-to-end &mdash; inventory, procurement, requests, samples, safety, instruments, publications, thesis tracking, waste, analytics and reporting &mdash; under role-based access control.</p>
+<h2 id="see-it">See it</h2>
+<p>Internal platform &mdash; <a href="https://inventory.mumbaibiocluster.org" target="_blank" rel="noopener">visit the live site &rarr;</a></p>
+</div>
+ <aside class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">Problem</a></li><li><a href="#what-i-built">What I built</a></li><li><a href="#challenge">The hardest part</a></li><li><a href="#result">Result</a></li><li><a href="#see-it">See it</a></li></ol></aside>
+</div></div>
+<div class="wrap"><a class="postcard" href="../knowledge-sharing-platform/"><small>NEXT PROJECT</small><h3>Knowledge-sharing platform</h3><span class="more">View project &rarr;</span></a></div>
+</article></main>
+<footer><div class="wrap fw"><span>&copy; 2026 Prathamesh Chavan</span><nav aria-label="Footer"><a href="../../">Home</a><a href="../../writing/">Writing</a><a href="https://www.linkedin.com/in/prathamesh-chavan-developer" rel="me noopener">LinkedIn</a><a href="https://github.com/Prathamesh-Chavan-7671" rel="me noopener">GitHub</a></nav></div></footer>
+<script src="../../assets/page.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#790B13">
+<title>Knowledge-sharing platform | Prathamesh Chavan</title>
+<meta name="description" content="One or two sentences (under 160 characters) that describe the project for search results.">
+<meta name="author" content="Prathamesh Chavan">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://prathamesh-portfolio-silk.vercel.app/work/knowledge-sharing-platform/">
+<meta property="og:site_name" content="Prathamesh Chavan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Knowledge-sharing platform | Prathamesh Chavan">
+<meta property="og:description" content="One or two sentences (under 160 characters) that describe the project for search results.">
+<meta property="og:url" content="https://prathamesh-portfolio-silk.vercel.app/work/knowledge-sharing-platform/">
+<meta property="og:image" content="https://prathamesh-portfolio-silk.vercel.app/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prathamesh Chavan, full stack web developer">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Knowledge-sharing platform | Prathamesh Chavan">
+<meta name="twitter:description" content="One or two sentences (under 160 characters) that describe the project for search results.">
+<meta name="twitter:image" content="https://prathamesh-portfolio-silk.vercel.app/assets/og-default.png">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="nv" id="nv"><div class="nvin static" id="nvin">
+ <a class="brand" href="../../" aria-label="Prathamesh Chavan, home"><span class="mono">PC</span><span class="nm">Prathamesh Chavan</span></a>
+ <nav class="links" id="links" aria-label="Primary"><a href="../../#work">Work</a><a href="../../#about">Experience</a><a href="../../#stack">Skills</a><a href="../../#lab">Security</a><a href="../../writing/">Writing</a></nav>
+ <a class="go" href="../../#contact">Get in touch <span aria-hidden="true">&rarr;</span></a>
+ <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+</div></div>
+<div class="menu simple" id="menu" aria-hidden="true"><a href="../../#work">Work</a><a href="../../#about">Experience</a><a href="../../#stack">Skills</a><a href="../../#lab">Security</a><a href="../../writing/">Writing</a><a href="../../#contact">Get in touch</a></div>
+<div class="pg" id="pg" aria-hidden="true"></div>
+<main id="main"><article>
+<header class="ahero"><div class="wrap">
+ <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../../">Home</a></li><li><a href="../../#work">Work</a></li><li aria-current="page">Knowledge-sharing platform</li></ol></nav>
+ <h1>Knowledge-sharing platform</h1>
+ <p class="lede">A multi-role editorial platform for publishing and peer-reviewing articles &mdash; built from a detailed specification covering roles, workflow, policies and dashboards.</p>
+ <p class="meta"><span>Role: Solo</span><span>Status: Live</span></p>
+ <ul class="tags" aria-label="Tech stack"><li>Next.js</li><li>TypeScript</li><li>Tailwind CSS</li><li>PostgreSQL + Prisma</li><li>Docker + nginx</li></ul>
+</div></header>
+<div class="abody"><div class="wrap alayout">
+ <div class="prose">
+<h2 id="problem">Problem</h2>
+<p>Publishing articles with real editorial rigor &mdash; multiple reviewers, a copy-editing pass, scheduled publishing, audit trails, and policies that actually match what the app does &mdash; usually means stitching together a CMS, a spreadsheet for tracking who's doing what, and email for the rest. This platform puts the whole editorial lifecycle, from first draft to a publicly citable article, behind one system with the rules built in rather than enforced by habit.</p>
+<h2 id="what-i-built">What I built</h2>
+<p>An editorial workflow engine with five scoped roles (Author, Reviewer, Copy Editor, Editor, Super Admin), each with its own dashboard, built against a 72-item specification covering workflow rules, data model, notifications, policies and extra features. I audited the finished build against that specification item by item: <strong>97% complete</strong> (68 of 72 items done outright, 3 partially automated, 1 deliberately deferred), verified with unit tests, API and page-rendering checks against a real database for every role and rule, and a production build.</p>
+<h3>Key features</h3>
+<ul>
+<li>A strict state machine across the full lifecycle &mdash; submission, peer review, revision, copy-edit, final approval &mdash; with a permissions matrix enforced on every action, not just in the UI</li>
+<li>Structured peer review: reviewers recommend, the editor decides, and a revision loop requires a written response to every round of comments</li>
+<li>Copy-editing stage with SEO fields, DOI and citation IDs (allocated under a database lock, so none collide), and tracked text changes via versions</li>
+<li>Scheduled and automatic publishing, with a background worker that publishes due articles every minute</li>
+<li>Published articles are never overwritten &mdash; an edit becomes a new version pending editor approval, while the live article stays up the whole time</li>
+<li>A full audit log of every status change, including editorial overrides recorded with a written reason, plus PDF export, public search/filtering, and SEO (sitemap, meta tags, canonical links)</li>
+</ul>
+<h2 id="challenge">The hardest part</h2>
+<p>Keeping "published" meaningful. Articles can't be silently edited once they're live, but editors still need to fix things &mdash; so an update to a published article becomes a new version that sits pending until an editor approves it, and the original stays visible and citable the entire time. Getting that right, alongside a strict per-role permissions matrix and a full audit trail of every status change, meant the state machine had to be airtight: no action that bypasses a rule, no status that isn't logged.</p>
+<h2 id="result">Result</h2>
+<p>97% complete against a 72-item specification, independently audited section by section (workflow rules, data model, notifications, IDs and business rules, policies, submission form, and dashboards all at 88&ndash;100%). The 3 remaining partial items are intentional product calls, not bugs: editor assignment falls back to manual claiming only when a division has no editor (and super admins are notified so nothing is orphaned), a copy-edit guardrail is enforced by notification rather than a hard block, and engagement analytics beyond anonymous view/download counts were deliberately left out to avoid cookies and trackers. The one missing item &mdash; payments for sponsored content &mdash; needs a business decision and a merchant account before it's worth building.</p>
+<h2 id="see-it">See it</h2>
+<p><a href="https://pharminsight.mumbaibiocluster.org" target="_blank" rel="noopener">Visit the live site &rarr;</a></p>
+</div>
+ <aside class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">Problem</a></li><li><a href="#what-i-built">What I built</a></li><li><a href="#challenge">The hardest part</a></li><li><a href="#result">Result</a></li><li><a href="#see-it">See it</a></li></ol></aside>
+</div></div>
+<div class="wrap"><a class="postcard" href="../event-gamification-app/"><small>NEXT PROJECT</small><h3>Exhibitor Engagement Program</h3><span class="more">View project &rarr;</span></a></div>
+</article></main>
+<footer><div class="wrap fw"><span>&copy; 2026 Prathamesh Chavan</span><nav aria-label="Footer"><a href="../../">Home</a><a href="../../writing/">Writing</a><a href="https://www.linkedin.com/in/prathamesh-chavan-developer" rel="me noopener">LinkedIn</a><a href="https://github.com/Prathamesh-Chavan-7671" rel="me noopener">GitHub</a></nav></div></footer>
+<script src="../../assets/page.js"></script>
+</body>
+</html>

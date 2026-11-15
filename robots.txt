@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /writing/_template/
+Disallow: /work/_template/
 
-Sitemap: https://YOUR-DOMAIN.com/sitemap.xml
+Sitemap: https://prathamesh-portfolio-silk.vercel.app/sitemap.xml
