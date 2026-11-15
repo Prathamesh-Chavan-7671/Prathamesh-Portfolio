@@ -47,7 +47,7 @@ I am now moving toward **application security** and **cybersecurity GRC** (gover
 
 ## Featured writing
 
-**[From a Slow Phone to a GRC Risk Assessment: My First Learning Project](https://YOUR-DOMAIN.com/writing/endpoint-security-capacity-assessment/)**
+**[From a Slow Phone to a GRC Risk Assessment: My First Learning Project](https://prathamesh-portfolio-silk.vercel.app/writing/endpoint-security-capacity-assessment/)**
 
 A self-study project where I treated a slow Android phone like a mini GRC assessment: evidence collected over ADB, 8 findings, a 5x5 risk register, a remediation plan and a mapping to ISO/IEC 27001:2022 Annex A. It uses my own personal device and is not an audit of any organisation. The full report is available as a PDF on the page.
 
