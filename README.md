@@ -3,8 +3,11 @@
 Full stack web developer in Mumbai, now building skills in application security and cybersecurity GRC.
 
 **Live site:** https://prathamesh-portfolio-silk.vercel.app/
+
 **LinkedIn:** https://www.linkedin.com/in/prathamesh-chavan-developer/
+
 **Email:** prathameshchavan8652@gmail.com
+
 ---
 
 ## About me
