@@ -9,19 +9,8 @@ const mail=$('#mail');mail.textContent=CONTACT_EMAIL;$('#mailto').setAttribute('
 if(!window.gsap||!window.ScrollTrigger||!window.Draggable)return;
 gsap.registerPlugin(ScrollTrigger,Draggable);
 
-/* navigation: sliding indicator, scroll-spy, hide on scroll down, mobile menu, progress */
-const nvin=$('#nvin'),ind=$('#ind'),links=$$('#links a');let act=null,cur=null,over=false,menuOpen=false,navHidden=false;
-const place=a=>{if(!a){gsap.to(ind,{opacity:0,duration:calm?0:.25,overwrite:true});return;}
- if(+gsap.getProperty(ind,'opacity')<.05)gsap.set(ind,{x:a.offsetLeft,width:a.offsetWidth});
- gsap.to(ind,{x:a.offsetLeft,width:a.offsetWidth,opacity:1,duration:calm?0:.45,ease:'power3.out',overwrite:true});};
-const mark=a=>{links.forEach(l=>l.classList.toggle('on',l===a));place(a);cur=a;};
-$('#links').addEventListener('pointerenter',()=>over=true);
-$('#links').addEventListener('pointerleave',()=>{over=false;mark(act);});
-links.forEach(l=>{l.addEventListener('pointerenter',()=>mark(l));l.addEventListener('focus',()=>mark(l));l.addEventListener('blur',()=>{if(!over)mark(act)});});
-const map=[['#work','#work'],['#next','#work'],['#all','#work'],['#about','#about'],['#stack','#stack'],['#lab','#lab'],['#writing','writing/']],live={};
-map.forEach(([sel,href])=>ScrollTrigger.create({trigger:sel,start:'top 50%',end:'bottom 50%',onToggle:self=>{live[sel]=self.isActive;
- act=links.find(l=>map.some(([s2,h2])=>live[s2]&&h2===l.getAttribute('href')))||null;if(!over)mark(act);}}));
-document.fonts.ready.then(()=>place(cur));addEventListener('resize',()=>place(cur));
+/* navigation: hide on scroll down, mobile menu, progress */
+const nvin=$('#nvin');let menuOpen=false,navHidden=false;
 if(!calm){gsap.from(nvin,{y:-90,opacity:0,duration:.9,ease:'power3.out',delay:.2});
  ScrollTrigger.create({start:0,end:'max',onUpdate:self=>{const hide=self.direction===1&&self.scroll()>240&&!menuOpen;
   if(hide!==navHidden){navHidden=hide;gsap.to(nvin,{yPercent:hide?-170:0,duration:.45,ease:'power3.out'});}}});
@@ -31,13 +20,12 @@ const burger=$('#burger'),menu=$('#menu');
 function setMenu(o){menuOpen=o;burger.setAttribute('aria-expanded',o);burger.setAttribute('aria-label',o?'Close menu':'Open menu');menu.setAttribute('aria-hidden',!o);
  document.documentElement.style.overflow=o?'hidden':'';
  if(o){menu.classList.add('open');if(!calm){gsap.fromTo(menu,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:.6,ease:'power4.inOut'});
-  gsap.from('#menu a',{y:50,opacity:0,stagger:.07,duration:.6,delay:.25,ease:'power3.out'});}}
+  gsap.from('#menu li',{y:50,opacity:0,stagger:.07,duration:.6,delay:.25,ease:'power3.out'});}}
  else if(calm)menu.classList.remove('open');
  else gsap.to(menu,{clipPath:'inset(0 0 100% 0)',duration:.45,ease:'power4.inOut',onComplete:()=>menu.classList.remove('open')});}
 burger.onclick=()=>setMenu(!menuOpen);
 $$('#menu a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOpen){setMenu(false);burger.focus();}});
-matchMedia('(min-width:761px)').addEventListener('change',e=>{if(e.matches&&menuOpen)setMenu(false);});
 
 /* guide: speech per section, eyes follow, draggable */
 const bub=$('#bub');let sayNow='';
@@ -77,33 +65,6 @@ function scratch(e){if(!down||done)return;const k=cv.getBoundingClientRect();ctx
  if(++n%10)return;const d=ctx.getImageData(0,0,cv.width,cv.height).data;let c=0,t=0;for(let i=3;i<d.length;i+=64){t++;if(!d[i])c++;}
  if(c/t>.5){done=true;say('Yes, application security. I mean it.');gsap.to(cv,{opacity:0,duration:.6,onComplete:()=>cv.remove()});}else say(c/t>.2?'Ooh, keep going!':'Keep scratching…');}
 cv.addEventListener('pointerdown',e=>{down=true;cv.setPointerCapture(e.pointerId);scratch(e)});cv.addEventListener('pointermove',scratch);cv.addEventListener('pointerup',()=>down=false);cv.addEventListener('pointercancel',()=>down=false);
-
-/* all work rows with cursor preview (rows are in the HTML; this adds the hover preview) */
-const COL=["#790B13","#2B0D10","#D9A441","#B5565C"];
-const rows=$('#rows'),pv=$('#pv');
-$$('.row').forEach((r,i)=>{
- r.addEventListener('pointerenter',e=>{pv.style.background=COL[i%COL.length];pv.textContent='0'+(i+1);gsap.set(pv,{x:e.clientX+20,y:e.clientY-55});gsap.to(pv,{opacity:1,scale:1,duration:.3});});
- r.addEventListener('pointerleave',()=>gsap.to(pv,{opacity:0,scale:.6,duration:.25}));});
-if(!calm){const qx=gsap.quickTo(pv,'x',{duration:.4}),qy=gsap.quickTo(pv,'y',{duration:.4});rows.addEventListener('pointermove',e=>{qx(e.clientX+20);qy(e.clientY-55);});gsap.set(pv,{scale:.6});
- addEventListener('scroll',()=>gsap.to(pv,{opacity:0,scale:.6,duration:.2,overwrite:'auto'}),{passive:true});}
-
-/* skills (categories and chips are in the HTML; this adds tilt, scan line and search) */
-if(!calm){$$('.cat').forEach(c=>{c.addEventListener('pointermove',e=>{const k=c.getBoundingClientRect();gsap.to(c,{rotateY:((e.clientX-k.left)/k.width-.5)*7,rotateX:-((e.clientY-k.top)/k.height-.5)*7,transformPerspective:900,duration:.4});});
- c.addEventListener('pointerleave',()=>gsap.to(c,{rotateX:0,rotateY:0,duration:.7,ease:'elastic.out(1,.5)'}));});
- gsap.fromTo('.scan',{top:'0%'},{top:'100%',duration:2.6,repeat:-1,yoyo:true,ease:'sine.inOut'});
- gsap.from('.cat',{scrollTrigger:{trigger:'#bento',start:'top 82%',once:true},y:60,opacity:0,stagger:.09,duration:.8,ease:'power3.out'});
- gsap.from('.chip',{scrollTrigger:{trigger:'#bento',start:'top 75%',once:true},scale:.6,opacity:0,stagger:{each:.012,from:'random'},duration:.4,delay:.3,ease:'back.out(2)'});}
-$('#find').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();let m=0;
- $$('.chip').forEach(c=>{const h=q&&c.textContent.toLowerCase().includes(q);m+=h?1:0;gsap.to(c,{opacity:!q||h?1:.2,scale:h?1.08:1,backgroundColor:h?'#790B13':'',color:h?'#FFF8EE':'',duration:.25});});
- $('#count').textContent=q?(m?m+' match'+(m>1?'es':''):'Not yet, but maybe soon'):'';if(q&&m)say('Found '+m+'. Nice.');});
-
-/* security lab */
-const inp=$('#inp'),q=$('#q'),v=$('#v');let safe=false;
-function lab(){const val=inp.value,atk=/'\s*or\s/i.test(val);$('#m1').setAttribute('aria-pressed',!safe);$('#m2').setAttribute('aria-pressed',safe);
- if(!safe){q.textContent="query = \"SELECT * FROM users WHERE name = '\" + input + \"'\"\n\nSELECT * FROM users WHERE name = '"+val+"'";v.className='verdict'+(atk?' bad':'');v.textContent=atk?"Vulnerable: the input changed the query's logic, so it would return every user.":"Works for normal input, but nothing stops a crafted one.";}
- else{q.textContent="db.query(\"SELECT * FROM users WHERE name = $1\", [input])\n\nSELECT * FROM users WHERE name = $1\n$1 = "+JSON.stringify(val);v.className='verdict';v.textContent=atk?"Safe: the input is treated as plain data, so it matches no user.":"Safe: the input can only ever be a value, never part of the query.";}
- if(!calm)gsap.fromTo(v,{x:atk&&!safe?-10:0,opacity:.4},{x:0,opacity:1,duration:.6,ease:'elastic.out(1,.35)'});}
-inp.oninput=lab;$('#ok').onclick=()=>{inp.value='admin';lab()};$('#bad').onclick=()=>{inp.value="' OR '1'='1";lab()};$('#m1').onclick=()=>{safe=false;lab()};$('#m2').onclick=()=>{safe=true;lab()};lab();
 
 /* headings (split per word so a word never breaks across lines) and counters */
 $$('h2').forEach(h=>{const t=h.textContent;h.setAttribute('aria-label',t);
