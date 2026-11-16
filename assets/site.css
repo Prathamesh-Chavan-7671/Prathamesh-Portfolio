@@ -13,15 +13,20 @@ h2{font:900 clamp(2.4rem,6vw,4.6rem)/1 var(--f);letter-spacing:-.04em;margin:0 0
 .nvin{pointer-events:auto;display:flex;align-items:center;gap:.6rem;width:min(980px,100%);padding:.4rem .45rem .4rem .45rem;background:rgba(255,240,220,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(43,13,16,.14);border-radius:99px;box-shadow:0 12px 32px -14px rgba(43,13,16,.45)}
 .brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;font-weight:700;color:var(--ink);padding-right:.4rem}
 .mono{width:40px;height:40px;border-radius:50%;background:var(--bl);color:#FFF8EE;display:grid;place-items:center;font:900 .95rem var(--f);letter-spacing:-.03em}
+.links{display:flex;gap:.1rem;margin:0 auto}
+.links a{text-decoration:none;font-weight:700;font-size:.95rem;padding:.55rem 1.05rem;border-radius:99px;color:var(--ink);transition:background .25s,color .25s}
+.links a:hover{background:rgba(43,13,16,.08)}
+.links a[aria-current=page]{background:var(--ink);color:#FFF8EE}
 .go{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;font-weight:700;font-size:.95rem;padding:.7rem 1.2rem;border-radius:99px;background:var(--bl);color:#FFF8EE;transition:background .25s,gap .25s}
 .go:hover{background:var(--ink);gap:.8rem}
-.burger{display:inline-flex;align-items:center;gap:.6rem;margin-left:auto;border:0;background:var(--ink);color:#FFF8EE;cursor:pointer;border-radius:99px;padding:.5rem 1.15rem .5rem .6rem;font:700 .92rem var(--f)}
+.burger{display:none;align-items:center;gap:.6rem;margin-left:auto;border:0;background:var(--ink);color:#FFF8EE;cursor:pointer;border-radius:99px;padding:.5rem 1.15rem .5rem .6rem;font:700 .92rem var(--f)}
 .burger .ic{position:relative;width:20px;height:16px;flex:none}
 .burger .ic i{position:absolute;left:0;right:0;height:2px;border-radius:2px;background:#FFF8EE;transition:transform .3s,top .3s,opacity .3s}
 .burger .ic i:nth-child(1){top:1px}.burger .ic i:nth-child(2){top:7px}.burger .ic i:nth-child(3){top:13px}
 .burger[aria-expanded=true] .ic i:nth-child(1){top:7px;transform:rotate(45deg)}
 .burger[aria-expanded=true] .ic i:nth-child(2){opacity:0}
 .burger[aria-expanded=true] .ic i:nth-child(3){top:7px;transform:rotate(-45deg)}
+@media(max-width:900px){.links{display:none}.burger{display:inline-flex}}
 @media(max-width:480px){.go{display:none}}
 .menu{position:fixed;inset:0;z-index:29;background:var(--bl);color:#FFF8EE;display:flex;flex-direction:column;justify-content:center;padding:6rem 1.6rem 2rem;visibility:hidden;clip-path:inset(0 0 100% 0)}
 .menu.open{visibility:visible;clip-path:inset(0)}
