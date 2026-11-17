@@ -48,6 +48,9 @@ if(!calm){gsap.from('#h1 i',{yPercent:110,rotate:6,stagger:.09,duration:1,ease:'
  gsap.from('.who,.sub',{y:24,opacity:0,stagger:.2,duration:.8,delay:.5});gsap.from('#pcard',{y:120,rotate:-10,opacity:0,duration:1.2,ease:'back.out(1.4)',delay:.4});
  gsap.to('#h1',{yPercent:-12,scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:true}});}
 
+/* decorative blobs: slow continuous drift */
+if(!calm)$$('.blob').forEach((b,i)=>gsap.to(b,{x:i%2?40:-40,y:i%2?-30:30,duration:9+i*2,repeat:-1,yoyo:true,ease:'sine.inOut'}));
+
 /* stacked cards, with a pointer-based 3D tilt */
 if(!calm)$$('.fc').forEach((c,i,a)=>{if(i<a.length-1)gsap.to(c,{scale:.93,opacity:.55,scrollTrigger:{trigger:a[i+1],start:'top 85%',end:'top 15%',scrub:true}});
  gsap.to(c.querySelectorAll('.art i'),{y:i=>(i%2?14:-14),rotate:i=>i*20,duration:2.5,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:.3});
@@ -81,5 +84,12 @@ mail.onclick=async()=>{let ok=false;try{await navigator.clipboard.writeText(CONT
  $('#cp').textContent=ok?'Copied! Talk soon.':'Copy it from the button above.';say(ok?'Copied! Talk soon.':'Select the address to copy it.');
  if(!calm)gsap.fromTo(mail,{scale:.92},{scale:1,duration:.7,ease:'elastic.out(1,.4)'});};
 if(!calm){mail.addEventListener('pointermove',e=>{const k=mail.getBoundingClientRect();gsap.to(mail,{x:(e.clientX-k.left-k.width/2)*.2,y:(e.clientY-k.top-k.height/2)*.35,duration:.3});});
- mail.addEventListener('pointerleave',()=>gsap.to(mail,{x:0,y:0,duration:.6,ease:'elastic.out(1,.4)'}));}
+ mail.addEventListener('pointerleave',()=>gsap.to(mail,{x:0,y:0,duration:.6,ease:'elastic.out(1,.4)'}));
+
+ /* magnetic hover: nav CTA and work card links */
+ $$('.go,.fc .textlink').forEach(el=>{
+  el.addEventListener('pointermove',e=>{const k=el.getBoundingClientRect();gsap.to(el,{x:(e.clientX-k.left-k.width/2)*.25,y:(e.clientY-k.top-k.height/2)*.4,duration:.3});});
+  el.addEventListener('pointerleave',()=>gsap.to(el,{x:0,y:0,duration:.6,ease:'elastic.out(1,.4)'}));
+ });
+}
 })();
