@@ -79,6 +79,8 @@ h2{font:900 clamp(2.4rem,6vw,4.6rem)/1 var(--f);letter-spacing:-.04em;margin:0 0
 .xps{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}@media(max-width:860px){.xps{grid-template-columns:1fr}}
 .xp{background:#FFF8EE;border-radius:1.5rem;padding:2rem}.xp h3{font:900 1.5rem/1.2 var(--f);letter-spacing:-.02em;margin:0}.xp span{color:var(--bl);font-weight:700}
 .xp ul{margin:1rem 0 0;padding-left:1.1rem}.xp li{margin:.4rem 0}
+.xp h4{font:700 1.05rem var(--f);letter-spacing:-.01em;margin:1.6rem 0 .3rem}.xp h4:first-of-type{margin-top:1.2rem}
+.xp.wide{grid-column:1/-1}
 .find{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:2rem}
 .find input{flex:1 1 280px;max-width:440px;font:500 1.05rem var(--f);padding:.85rem 1.3rem;border:2px solid var(--ink);border-radius:99px;background:#FFF8EE;color:var(--ink)}.find span{color:var(--mute)}
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:1.1rem}
