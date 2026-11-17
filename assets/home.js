@@ -58,7 +58,7 @@ if(!calm)$$('.fc').forEach((c,i,a)=>{if(i<a.length-1)gsap.to(c,{scale:.93,opacit
  c.addEventListener('pointerleave',()=>gsap.to(c,{rotateX:0,rotateY:0,duration:.7,ease:'elastic.out(1,.5)'}));});
 
 /* section teasers: slide up once as they enter view (never opacity:0, so content stays readable even if this never fires) */
-if(!calm)$$('#about .sub,#about .textlink,#stack .chips,#stack .textlink,#lab .sub,#lab .textlink,#writing .postcard,#writing .textlink,.contact .mail,.contact p').forEach(el=>
+if(!calm)$$('#about .sub,#about .textlink,#stack .chips,#stack .textlink,#lab .sub,#lab .textlink,#writing .postcard,#writing .textlink,.contact .mail,.contact p,.tstrip div,.whylede,.whylist div').forEach(el=>
  gsap.from(el,{scrollTrigger:{trigger:el,start:'top 92%',once:true},y:28,duration:.7,ease:'power3.out'}));
 
 /* scratch card */
