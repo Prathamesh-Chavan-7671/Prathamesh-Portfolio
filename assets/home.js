@@ -34,19 +34,26 @@ if(!calm){
  addEventListener('pointermove',e=>{const g=$('.bd').getBoundingClientRect(),dx=e.clientX-(g.left+g.width/2),dy=e.clientY-(g.top+g.height/2),a=Math.atan2(dy,dx),m=Math.min(4,Math.hypot(dx,dy)/60);pup.forEach(p=>{p.x(Math.cos(a)*m);p.y(Math.sin(a)*m);});});
  gsap.to('.bd',{y:-6,duration:1.3,repeat:-1,yoyo:true,ease:'sine.inOut'});
  Draggable.create('#guide',{type:'x,y',onPress(){say('Whee!')},onRelease(){gsap.to(this.target,{x:0,y:0,duration:.9,ease:'elastic.out(1,.45)'});say('Hold me to pick me up.')}});
- Draggable.create('#pcard',{type:'x,y',onRelease(){gsap.to(this.target,{x:0,y:0,rotate:4,duration:1,ease:'elastic.out(1,.4)'})},onDrag(){gsap.to(this.target,{rotate:4+this.deltaX*.6,duration:.2,overwrite:'auto'})}});
 }
 
 /* photo: loaded from PHOTO_URL (set at the top of this file) */
-const pc=$('#pcard'),pimg=$('#pimg');
-if(PHOTO_URL){pimg.onload=()=>pc.classList.add('has');pimg.onerror=()=>pc.classList.remove('has');pimg.src=PHOTO_URL;}
+const h2bg=$('#h2bg'),pimg=$('#pimg');
+if(PHOTO_URL){pimg.onload=()=>h2bg.classList.add('has');pimg.onerror=()=>h2bg.classList.remove('has');pimg.src=PHOTO_URL;}
 
 /* hero headline words */
 const h1=$('#h1');h1.setAttribute('aria-label',h1.textContent);
 h1.innerHTML=h1.textContent.split(' ').map(w=>`<span class="w" aria-hidden="true"><i>${w}</i></span>`).join(' ');
 if(!calm){gsap.from('#h1 i',{yPercent:110,rotate:6,stagger:.09,duration:1,ease:'power4.out',delay:.15});
- gsap.from('.who,.sub',{y:24,opacity:0,stagger:.2,duration:.8,delay:.5});gsap.from('#pcard',{y:120,rotate:-10,opacity:0,duration:1.2,ease:'back.out(1.4)',delay:.4});
+ gsap.from('.eyebrow,.h2meta,.sub,.h2cta',{y:24,opacity:0,stagger:.12,duration:.8,delay:.5});
+ gsap.from('#h2bg img',{scale:1.08,duration:1.6,ease:'power2.out'});
+ gsap.from('.h2side',{opacity:0,x:-20,duration:.9,delay:.7});
  gsap.to('#h1',{yPercent:-12,scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:true}});}
+
+/* motion toggle: pauses every GSAP-driven animation and CSS marquee/typing loop */
+const motiontg=$('#motiontg');let motionOn=!calm;
+function setMotion(o){motionOn=o;motiontg.setAttribute('aria-pressed',!o);motiontg.querySelector('span').textContent=o?'Motion on':'Motion off';
+ document.documentElement.classList.toggle('no-motion',!o);gsap.globalTimeline[o?'resume':'pause']();}
+motiontg.onclick=()=>setMotion(!motionOn);
 
 /* decorative blobs: slow continuous drift */
 if(!calm)$$('.blob').forEach((b,i)=>gsap.to(b,{x:i%2?40:-40,y:i%2?-30:30,duration:9+i*2,repeat:-1,yoyo:true,ease:'sine.inOut'}));
@@ -87,7 +94,7 @@ if(!calm){mail.addEventListener('pointermove',e=>{const k=mail.getBoundingClient
  mail.addEventListener('pointerleave',()=>gsap.to(mail,{x:0,y:0,duration:.6,ease:'elastic.out(1,.4)'}));
 
  /* magnetic hover: nav CTA and work card links */
- $$('.go,.fc .textlink').forEach(el=>{
+ $$('.go,.go2,.fc .textlink').forEach(el=>{
   el.addEventListener('pointermove',e=>{const k=el.getBoundingClientRect();gsap.to(el,{x:(e.clientX-k.left-k.width/2)*.25,y:(e.clientY-k.top-k.height/2)*.4,duration:.3});});
   el.addEventListener('pointerleave',()=>gsap.to(el,{x:0,y:0,duration:.6,ease:'elastic.out(1,.4)'}));
  });
