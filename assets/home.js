@@ -43,30 +43,29 @@ if(PHOTO_URL){pimg.onload=()=>h2bg.classList.add('has');pimg.onerror=()=>h2bg.cl
 /* hero headline words */
 const h1=$('#h1');h1.setAttribute('aria-label',h1.textContent);
 h1.innerHTML=h1.textContent.split(' ').map(w=>`<span class="w" aria-hidden="true"><i>${w}</i></span>`).join(' ');
-if(!calm){gsap.from('#h1 i',{yPercent:110,rotate:6,stagger:.09,duration:1,ease:'power4.out',delay:.15});
- gsap.from('.eyebrow,.h2meta,.sub,.h2cta',{y:24,opacity:0,stagger:.12,duration:.8,delay:.5});
- gsap.from('#h2bg img',{scale:1.08,duration:1.6,ease:'power2.out'});
- gsap.from('.h2side',{opacity:0,x:-20,duration:.9,delay:.7});
- gsap.to('#h1',{yPercent:-12,scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:true}});}
+if(!calm){gsap.from('#h1 i',{yPercent:110,rotate:6,stagger:.09,duration:.8,ease:'power4.out',delay:.1});
+ gsap.from('.statuscard,.clockcard,.ctacard',{y:16,opacity:0,stagger:.08,duration:.6,delay:.15});
+ gsap.from('.eyebrow,.sub,.h2cta',{y:20,opacity:0,stagger:.1,duration:.7,delay:.35});
+ gsap.from('#h2bg img',{scale:1.1,duration:1.3,ease:'power2.out'});}
 
-/* motion toggle: pauses every GSAP-driven animation and CSS marquee/typing loop */
-const motiontg=$('#motiontg');let motionOn=!calm;
-function setMotion(o){motionOn=o;motiontg.setAttribute('aria-pressed',!o);motiontg.querySelector('span').textContent=o?'Motion on':'Motion off';
- document.documentElement.classList.toggle('no-motion',!o);gsap.globalTimeline[o?'resume':'pause']();}
-motiontg.onclick=()=>setMotion(!motionOn);
+/* live clock: Mumbai time, updates once a minute */
+const clockEl=$('#clocktext');
+function tickClock(){clockEl.textContent=new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata',weekday:'long',day:'numeric',month:'long',hour:'numeric',minute:'2-digit',hour12:true});}
+tickClock();setInterval(tickClock,30000);
 
 /* decorative blobs: slow continuous drift */
 if(!calm)$$('.blob').forEach((b,i)=>gsap.to(b,{x:i%2?40:-40,y:i%2?-30:30,duration:9+i*2,repeat:-1,yoyo:true,ease:'sine.inOut'}));
 
-/* stacked cards, with a pointer-based 3D tilt */
-if(!calm)$$('.fc').forEach((c,i,a)=>{if(i<a.length-1)gsap.to(c,{scale:.93,opacity:.55,scrollTrigger:{trigger:a[i+1],start:'top 85%',end:'top 15%',scrub:true}});
- gsap.to(c.querySelectorAll('.art i'),{y:i=>(i%2?14:-14),rotate:i=>i*20,duration:2.5,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:.3});
+/* project cards: pointer-based 3D tilt and a slow drifting accent shape */
+if(!calm)$$('.projcard').forEach(c=>{
+ gsap.to(c.querySelectorAll('.art i'),{y:i=>(i%2?10:-10),rotate:i=>i*20,duration:2.5,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:.3});
  c.addEventListener('pointermove',e=>{const k=c.getBoundingClientRect();gsap.to(c,{rotateX:-((e.clientY-k.top)/k.height-.5)*6,rotateY:((e.clientX-k.left)/k.width-.5)*6,transformPerspective:1000,duration:.5,ease:'power2.out'});});
  c.addEventListener('pointerleave',()=>gsap.to(c,{rotateX:0,rotateY:0,duration:.7,ease:'elastic.out(1,.5)'}));});
 
-/* section teasers: slide up once as they enter view (never opacity:0, so content stays readable even if this never fires) */
-if(!calm)$$('#about .sub,#about .textlink,#stack .chips,#stack .textlink,#lab .sub,#lab .textlink,#writing .postcard,#writing .textlink,.contact .mail,.contact p,.tstrip div,.whylede,.whylist div').forEach(el=>
- gsap.from(el,{scrollTrigger:{trigger:el,start:'top 92%',once:true},y:28,duration:.7,ease:'power3.out'}));
+/* every card below the hero: slide up once as it enters view (motion only, never opacity:0,
+   so content stays readable even if a trigger never fires) */
+if(!calm)$$('.bsec:not(#top) .bcard').forEach(el=>
+ gsap.from(el,{scrollTrigger:{trigger:el,start:'top 92%',once:true},y:28,duration:.6,ease:'power3.out'}));
 
 /* scratch card */
 const cv=$('#cv'),sc=$('#sc'),ctx=cv.getContext('2d');let done=false,down=false,n=0;
@@ -94,7 +93,7 @@ if(!calm){mail.addEventListener('pointermove',e=>{const k=mail.getBoundingClient
  mail.addEventListener('pointerleave',()=>gsap.to(mail,{x:0,y:0,duration:.6,ease:'elastic.out(1,.4)'}));
 
  /* magnetic hover: nav CTA and work card links */
- $$('.go,.go2,.fc .textlink').forEach(el=>{
+ $$('.go,.go2,.projcard .textlink2').forEach(el=>{
   el.addEventListener('pointermove',e=>{const k=el.getBoundingClientRect();gsap.to(el,{x:(e.clientX-k.left-k.width/2)*.25,y:(e.clientY-k.top-k.height/2)*.4,duration:.3});});
   el.addEventListener('pointerleave',()=>gsap.to(el,{x:0,y:0,duration:.6,ease:'elastic.out(1,.4)'}));
  });
