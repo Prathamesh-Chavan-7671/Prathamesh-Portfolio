@@ -62,15 +62,15 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 .apanel-in{display:flex;flex-direction:column;gap:14px;padding-bottom:1rem}
 .apanel>section{display:flex;flex-direction:column;gap:14px}
 
-.arow{display:grid;gap:14px}
-.arow.cards3{grid-template-columns:repeat(3,1fr)}
-.arow.cards2{grid-template-columns:repeat(2,1fr)}
-.arow.cards4{grid-template-columns:repeat(4,1fr)}
-.arow.contactrow{grid-template-columns:1.6fr 1fr}
-.arow.bio-row{grid-template-columns:1fr 1.5fr .8fr .8fr}
+/* true bento grid: a fixed 6-column row, cards opt into a width with .a1../.a6 and,
+   for the Work row, a height with .r2 (span 2 rows) so a feature card can sit beside two stacked ones */
+.arow{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(0,auto);gap:14px}
+.a1{grid-column:span 1}.a2{grid-column:span 2}.a3{grid-column:span 3}.a4{grid-column:span 4}.a6{grid-column:span 6}
+.r2{grid-row:span 2}
 .arow.bio-row .aside-stack{display:flex;flex-direction:column;gap:14px}
-@media(max-width:980px){.arow.cards3,.arow.cards4,.arow.contactrow{grid-template-columns:repeat(2,1fr)}.arow.bio-row{grid-template-columns:1fr 1fr}.arow.bio-row .orb{grid-column:span 2;min-height:70px}}
-@media(max-width:700px){.arow{grid-template-columns:1fr!important}.arow.bio-row .orb{grid-column:1}}
+@media(max-width:980px){.arow .a1,.arow .a2,.arow .a3{grid-column:span 3}.arow .a4{grid-column:span 6}
+ .arow.work-row .r2{grid-row:auto}}
+@media(max-width:700px){.arow .a1,.arow .a2,.arow .a3,.arow .a4,.arow .a6{grid-column:span 6}}
 
 /* transform is never put in this element's CSS `transition` list: GSAP drives every transform on
    .acard (entrance tweens, scroll reveals, the hover lift below) by writing to it every frame, and a
@@ -121,9 +121,11 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 @media(prefers-reduced-motion:reduce){.smarq span{animation:none}}
 @media(max-width:700px){.smarq{display:none}}
 
-.statnum{text-align:center}
+.statnum{text-align:center;display:flex;flex-direction:column;justify-content:center}
 .statnum b{display:block;font:900 clamp(1.8rem,4vw,2.6rem)/1 var(--f);color:var(--ter);letter-spacing:-.03em;margin-bottom:.4rem}
 .statnum span{font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.65}
+.statnum.big{background:linear-gradient(135deg,rgba(217,164,65,.16),rgba(121,11,19,.1));border-color:rgba(217,164,65,.35)}
+.statnum.big b{font-size:clamp(2.4rem,5vw,3.6rem)}
 .whylede{font:900 clamp(1.3rem,2.6vw,1.8rem)/1.35 var(--f);letter-spacing:-.02em;max-width:36ch;margin:0}
 .servcard h4,.stackcard h4{margin:0 0 .5rem;font:900 1.05rem var(--f);letter-spacing:-.01em}
 .servcard p,.stackcard p{margin:0;opacity:.75;font-size:.95rem}
@@ -138,9 +140,13 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 .tco{font-weight:700;color:var(--ter);font-size:.9rem}
 @media(max-width:600px){.trow{flex-direction:column;gap:.3rem}.tdate{width:auto}}
 
-.projcard{padding:1.6rem}
+.projcard{padding:1.6rem;display:flex;flex-direction:column}
 .projcard h3{font:900 1.6rem/1.1 var(--f);letter-spacing:-.02em;margin:1rem 0 .7rem}
 .projcard p{margin:0 0 1rem;opacity:.9;font-size:.98rem}
+.projcard.r2{justify-content:center}
+.projcard.r2 .art{max-height:260px}
+.projcard.r2 h3{font-size:clamp(1.6rem,2.6vw,2.2rem)}
+@media(max-width:980px){.projcard.r2{justify-content:flex-start}.projcard.r2 .art{max-height:160px}.projcard.r2 h3{font-size:1.6rem}}
 .c1{background:var(--bl);color:#FFF8EE;border-color:transparent}.c2{background:#3C1319;color:#FFF8EE;border-color:transparent}.c3{background:var(--lb);color:var(--ink);border-color:transparent}
 .art{position:relative;aspect-ratio:2/1;max-height:160px;width:100%}.art i{position:absolute;border-radius:50%;display:block}
 .c1 .art i{background:#FFF8EE}.c2 .art i,.c3 .art i{background:var(--bl)}
