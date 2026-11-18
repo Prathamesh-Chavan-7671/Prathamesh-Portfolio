@@ -54,6 +54,8 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 .asnav a svg{width:18px;height:18px}
 .asnav a:hover,.asnav a[aria-current=page]{background:var(--bl);color:#FFF8EE}
 .ascopy{margin-top:auto;font-size:.68rem;opacity:.45}
+.asprog{width:3px;height:46px;border-radius:3px;background:rgba(255,248,238,.1);overflow:hidden}
+.asprog i{display:block;width:100%;height:0%;background:var(--ter);border-radius:3px}
 @media(prefers-reduced-motion:reduce){.asclock{opacity:.6}}
 
 .apanel{flex:1;min-width:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(255,248,238,.25) transparent}
@@ -70,16 +72,20 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 @media(max-width:980px){.arow.cards3,.arow.cards4,.arow.contactrow{grid-template-columns:repeat(2,1fr)}.arow.bio-row{grid-template-columns:1fr 1fr}.arow.bio-row .orb{grid-column:span 2;min-height:70px}}
 @media(max-width:700px){.arow{grid-template-columns:1fr!important}.arow.bio-row .orb{grid-column:1}}
 
-.acard{background:rgba(255,248,238,.035);border:1px solid rgba(255,248,238,.12);border-radius:1rem;padding:1.5rem;position:relative;overflow:hidden;transition:border-color .3s,background .3s;text-decoration:none;color:inherit;display:block}
-.acard:hover{border-color:rgba(255,248,238,.25);background:rgba(255,248,238,.055)}
+/* transform is never put in this element's CSS `transition` list: GSAP drives every transform on
+   .acard (entrance tweens, scroll reveals, the hover lift below) by writing to it every frame, and a
+   CSS transition on the same property fights that, chasing each frame's value and never settling */
+.acard{background:rgba(255,248,238,.035);border:1px solid rgba(255,248,238,.12);border-radius:1rem;padding:1.5rem;position:relative;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s;text-decoration:none;color:inherit;display:block}
+.acard:hover{border-color:rgba(255,248,238,.25);background:rgba(255,248,238,.055);box-shadow:0 20px 36px -22px rgba(0,0,0,.6)}
 .acard h2{margin:.4rem 0 0}
+@media(prefers-reduced-motion:reduce){.acard{transition:border-color .3s,background .3s}}
 
 .pill-row{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:.92rem;padding:1.1rem 1.4rem}
 .pill-row .aic{width:16px;height:16px;flex:none;opacity:.7}
 .dot{width:8px;height:8px;border-radius:50%;background:#7CCB7A;flex:none;box-shadow:0 0 0 0 rgba(124,203,122,.6);animation:pulse 2.2s infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 8px rgba(124,203,122,0)}100%{box-shadow:0 0 0 0 rgba(124,203,122,0)}}
-.pill-row.cta{justify-content:space-between;background:rgba(255,248,238,.07)}
-.pill-row.cta:hover{background:var(--ter);color:var(--ink);border-color:var(--ter)}
+.pill-row.pcta{justify-content:space-between;background:rgba(255,248,238,.07)}
+.pill-row.pcta:hover{background:var(--ter);color:var(--ink);border-color:var(--ter)}
 
 .eyebrow{display:flex;align-items:center;gap:.6rem;font:700 .8rem var(--f);letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin:0 0 .6rem}
 .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--ter);display:inline-block;flex:none}
@@ -98,13 +104,17 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 .aphoto .ph{display:none}.aphoto:not(.has) .ph{display:grid;place-items:center;width:100%;height:100%}.aphoto .ph b{font:900 4.5rem/1 var(--f);color:var(--bl);opacity:.6}
 
 .aside-stack .mini{display:flex;align-items:center;font-weight:700;flex:1;padding:1rem 1.3rem}
-.orb{background:radial-gradient(circle at 35% 35%,var(--ter),var(--bl) 75%);border:none;flex:1;min-height:90px}
+.orb{border:none;flex:1;min-height:90px}
+.orb::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,var(--ter),var(--bl) 30%,var(--ter) 65%,var(--bl));animation:spin 10s linear infinite}
+.orb::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 35% 30%,rgba(255,248,238,.5),transparent 55%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.orb::before{animation:none}}
 
 /* section header bar: pill label + scrolling marquee divider + optional link, repeated above every section */
 .sechead{display:flex;align-items:center;gap:1rem;background:rgba(255,248,238,.035);border:1px solid rgba(255,248,238,.12);border-radius:1rem;padding:.5rem .5rem .5rem 1rem}
 .sechead .stag{flex:none;font:700 .8rem var(--f);letter-spacing:.04em;background:rgba(255,248,238,.08);padding:.55rem 1.1rem;border-radius:.7rem;text-decoration:none;color:inherit}
-.sechead a.stag{display:inline-flex;align-items:center;gap:.4rem;transition:background .25s}
-.sechead a.stag:hover{background:var(--ter);color:var(--ink)}
+.sechead a.stag.shref{display:inline-flex;align-items:center;gap:.4rem;transition:background .25s}
+.sechead a.stag.shref:hover{background:var(--ter);color:var(--ink)}
 .smarq{flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);min-width:0}
 .smarq span{display:inline-block;white-space:nowrap;animation:mscroll 16s linear infinite;opacity:.4;font:700 .85rem var(--f)}
 @keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -139,7 +149,7 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 .writecard small{font-weight:700;letter-spacing:.06em;color:var(--ter)}
 .writecard h3{font:900 clamp(1.4rem,3.4vw,2rem)/1.15 var(--f);letter-spacing:-.02em;margin:.6rem 0 .7rem}
 .writecard p{margin:0 0 1rem;opacity:.85;max-width:60ch}
-.writecard .more{font-weight:700;color:var(--ter)}
+.writecard .wmore{font-weight:700;color:var(--ter)}
 
 .scr{padding:2rem}
 .scr h2{margin:0 0 1.2rem}

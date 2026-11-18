@@ -28,10 +28,12 @@ if(PHOTO_URL){pimg.onload=()=>h2bg.classList.add('has');pimg.onerror=()=>h2bg.cl
 /* hero headline words */
 const h1=$('#h1');h1.setAttribute('aria-label',h1.textContent);
 h1.innerHTML=h1.textContent.split(' ').map(w=>`<span class="w" aria-hidden="true"><i>${w}</i></span>`).join(' ');
-if(!calm){gsap.from('#h1 i',{yPercent:110,rotate:6,stagger:.09,duration:.8,ease:'power4.out',delay:.1});
- gsap.from('#top .pill-row',{y:16,opacity:0,stagger:.08,duration:.6,delay:.15});
+if(!calm){gsap.from('.asidebar',{x:-20,opacity:0,duration:.7,ease:'power3.out'});
+ gsap.from('#h1 i',{yPercent:110,rotate:6,stagger:.09,duration:.8,ease:'power4.out',delay:.1});
+ gsap.from('#top .pill-row',{y:24,opacity:0,scale:.96,stagger:.08,duration:.6,delay:.15,ease:'back.out(1.6)'});
  gsap.from('.eyebrow,.sub,.h2cta',{y:20,opacity:0,stagger:.1,duration:.7,delay:.35});
- gsap.from('#h2bg img',{scale:1.1,duration:1.3,ease:'power2.out'});}
+ gsap.from('#h2bg img',{scale:1.1,duration:1.3,ease:'power2.out'});
+ gsap.from('.aside-stack .mini,.orb',{y:24,opacity:0,scale:.94,stagger:.08,duration:.6,delay:.4,ease:'back.out(1.6)'});}
 
 /* live clocks: Mumbai time. Sidebar shows a compact HH:MM, the hero card shows the full date */
 const clockEl=$('#clocktext'),sclock=$('#sclock');
@@ -41,8 +43,18 @@ function tickClock(){
 }
 tickClock();setInterval(tickClock,30000);
 
-/* decorative orb: slow continuous drift */
-if(!calm)gsap.to('.orb',{backgroundPosition:'20px 10px',duration:6,repeat:-1,yoyo:true,ease:'sine.inOut'});
+/* scroll progress: fills the thin bar at the bottom of the sidebar as the panel scrolls */
+if(!calm)gsap.to('#progfill',{height:'100%',ease:'none',scrollTrigger:{trigger:'.apanel-in',scroller:'#main',start:'top top',end:'bottom bottom',scrub:.2}});
+else $('#progfill').style.height='100%';
+
+/* sidebar nav: highlight the icon for the section currently in view */
+const navLinks=$$('.asnav a');
+$$('#main>.apanel-in>section[id]').forEach(sec=>{
+ const link=navLinks.find(a=>a.getAttribute('href')==='#'+sec.id);
+ if(!link)return;
+ ScrollTrigger.create({trigger:sec,scroller:'#main',start:'top 45%',end:'bottom 45%',
+  onToggle:self=>{if(self.isActive)navLinks.forEach(a=>a.removeAttribute('aria-current')),link.setAttribute('aria-current','page');}});
+});
 
 /* section marquees: duplicate each strip's text so the CSS loop is seamless */
 $$('.smarq span').forEach(s=>s.insertAdjacentHTML('afterend',s.outerHTML));
@@ -55,8 +67,15 @@ if(!calm)$$('.projcard').forEach(c=>{
 
 /* every card below the hero: slide up once as it enters view (motion only, never opacity:0,
    so content stays readable even if a trigger never fires) */
-if(!calm)$$('#main section:not(#top) .acard').forEach(el=>
- gsap.from(el,{scrollTrigger:{trigger:el,scroller:'#main',start:'top 92%',once:true},y:28,duration:.6,ease:'power3.out'}));
+if(!calm)$$('#main section:not(#top) .acard,.sechead').forEach(el=>
+ gsap.from(el,{scrollTrigger:{trigger:el,scroller:'#main',start:'top 92%',once:true},y:36,scale:.97,duration:.65,ease:'power3.out'}));
+
+/* hover lift: every plain card, skipping the ones that already own their transform
+   (the tilting project cards, and the orb's own idle motion has no transform to fight) */
+if(!calm)$$('.acard:not(.projcard)').forEach(el=>{
+ el.addEventListener('pointerenter',()=>gsap.to(el,{y:-5,duration:.35,ease:'power2.out',overwrite:'auto'}));
+ el.addEventListener('pointerleave',()=>gsap.to(el,{y:0,duration:.5,ease:'power2.out',overwrite:'auto'}));
+});
 
 /* scratch card */
 const cv=$('#cv'),sc=$('#sc'),ctx=cv.getContext('2d');let done=false,down=false,n=0;
