@@ -98,7 +98,7 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 .go2:hover{background:var(--ter)}
 .textlink2{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;font-weight:700;color:inherit;border-bottom:2px solid currentColor;padding-bottom:.15rem;will-change:transform}
 
-.aphoto{padding:0;aspect-ratio:3/4;min-height:220px}
+.aphoto{padding:0;min-height:280px}
 .aphoto img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:none;filter:grayscale(.7) contrast(1.08)}
 .aphoto.has img{display:block}
 .aphoto .ph{display:none}.aphoto:not(.has) .ph{display:grid;place-items:center;width:100%;height:100%}.aphoto .ph b{font:900 4.5rem/1 var(--f);color:var(--bl);opacity:.6}
