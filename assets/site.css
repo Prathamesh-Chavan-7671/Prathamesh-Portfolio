@@ -60,7 +60,7 @@ body.appshell{background:#0E0405;color:#FFF8EE;height:100vh;overflow:hidden}
 
 .apanel{flex:1;min-width:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(255,248,238,.25) transparent}
 .apanel-in{display:flex;flex-direction:column;gap:14px;padding-bottom:1rem}
-.apanel>section{display:flex;flex-direction:column;gap:14px}
+.apanel-in>section{display:flex;flex-direction:column;gap:14px}
 
 /* true bento grid: a fixed 6-column row, cards opt into a width with .a1../.a6 and,
    for the Work row, a height with .r2 (span 2 rows) so a feature card can sit beside two stacked ones */
