@@ -1,4 +1,4 @@
-:root{--bl:#1E4FD6;--ink:#0A0F1C;--bg:#EEF2FA;--mute:#5B6B84;--lb:#DCE6F7;--ter:#22D3EE;--f:'Hanken Grotesk',system-ui,sans-serif;
+:root{--bl:#1E4FD6;--ink:#0A0F1C;--bg:#EEF2FA;--mute:#5B6B84;--lb:#DCE6F7;--ter:#00AAFF;--f:'Hanken Grotesk',system-ui,sans-serif;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -39,24 +39,59 @@ h2{font:900 clamp(2.4rem,6vw,4.6rem)/1 var(--f);letter-spacing:-.04em;margin:0 0
 .mlist a{font:900 clamp(2.2rem,9vw,4.2rem)/1.15 var(--f);letter-spacing:-.04em;text-decoration:none;flex:1}
 .mlist li:last-child a{color:#67E8F9}
 .pg{position:fixed;top:0;left:0;right:0;height:3px;background:var(--ter);transform-origin:left;transform:scaleX(0);z-index:31}
-/* ==== home: sidebar-app shell (fixed icon sidebar + boxed scrollable panel) ==== */
-body.appshell{background:#070B14;color:#F3F7FC;height:100vh;overflow:hidden}
+/* ==== home: sidebar-app shell (fixed sidebar + boxed scrollable panel) ====
+   sidebar recipe (width, profile card, labeled nav, thin hairline borders) follows the
+   reference Stag template's .sticky-sidebar fairly closely, scaled down to this content */
+body.appshell{background:#05070D;color:#F3F7FC;height:100vh;overflow:hidden}
 .ashell{display:flex;height:100vh;height:100dvh;padding:14px;gap:14px}
-.asidebar{flex:none;width:76px;display:flex;flex-direction:column;align-items:center;gap:1.1rem;padding:1.2rem 0;background:rgba(243,247,252,.035);border:1px solid rgba(243,247,252,.12);border-radius:1.2rem}
-.aslogo{width:38px;height:38px;border-radius:50%;background:var(--bl);color:#F3F7FC;display:grid;place-items:center;text-decoration:none}
-.aslogo .mono{width:auto;height:auto;background:none;font:900 .85rem var(--f)}
-.asdots{display:flex;flex-direction:column;gap:3px;border:0;background:none;color:#F3F7FC;opacity:.55;cursor:pointer;padding:.4rem;transition:opacity .25s}
+.asidebar{flex:none;width:248px;display:flex;flex-direction:column;justify-content:space-between;gap:1rem;padding:1.3rem 1.1rem;background:linear-gradient(180deg,rgba(30,79,214,.05),rgba(30,79,214,.02));border:1px solid rgba(243,247,252,.05)}
+.asidebar-top{display:flex;flex-direction:column;gap:1.1rem;min-height:0}
+
+.aslogorow{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.aslogo{display:flex;align-items:center;gap:.6rem;text-decoration:none;min-width:0}
+.aslogo .mono{width:34px;height:34px;flex:none;border-radius:0;background:var(--bl);color:#F3F7FC;display:grid;place-items:center;font:900 .8rem var(--f)}
+.aslogotext{font:700 .78rem var(--f);letter-spacing:.1em;text-transform:uppercase;color:#F3F7FC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.asright{display:flex;align-items:center;gap:.7rem;flex:none}
+.asclock{font:700 .78rem var(--f);letter-spacing:.02em;opacity:.6;white-space:nowrap}
+.asdots{display:flex;flex-direction:column;gap:3px;border:0;background:none;color:#F3F7FC;opacity:.55;cursor:pointer;padding:.3rem;transition:opacity .25s}
 .asdots:hover{opacity:1}
 .asdots i{width:4px;height:4px;border-radius:50%;background:currentColor;display:block}
-.asclock{font:700 .78rem var(--f);letter-spacing:.02em;opacity:.6;white-space:nowrap}
-.asnav{display:flex;flex-direction:column;gap:.4rem}
-.asnav a{width:40px;height:40px;display:grid;place-items:center;border-radius:.8rem;color:rgba(243,247,252,.5);transition:background .25s,color .25s}
-.asnav a svg{width:18px;height:18px}
-.asnav a:hover,.asnav a[aria-current=page]{background:var(--bl);color:#F3F7FC}
-.ascopy{margin-top:auto;font-size:.68rem;opacity:.45}
-.asprog{width:3px;height:46px;border-radius:3px;background:rgba(243,247,252,.1);overflow:hidden}
+
+.asme{display:flex;align-items:center;gap:.9rem;padding:.9rem}
+.asme-img{flex:none;width:52px;height:52px;overflow:hidden;border:1px solid rgba(243,247,252,.08)}
+.asme-img img{width:100%;height:100%;object-fit:cover;display:block}
+.asme-content{min-width:0}
+.asme-content h3{margin:0 0 .25rem;font:700 .9rem var(--f);color:#F3F7FC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.asme-content p{margin:0 0 .35rem;font-size:.75rem;opacity:.65}
+.asme-loc{display:flex;align-items:center;gap:.35rem;font-size:.72rem;opacity:.7}
+.asme-loc svg{width:12px;height:12px;flex:none;color:var(--ter)}
+
+.asnav{display:flex;flex-direction:column;gap:.25rem;overflow-y:auto}
+.asnav a{display:flex;align-items:center;gap:.8rem;padding:.65rem .6rem;border-radius:.5rem;border:1px solid transparent;color:rgba(243,247,252,.55);font:500 .85rem var(--f);transition:background .25s,color .25s,border-color .25s}
+.asnav a .aic{width:17px;height:17px;flex:none;opacity:.6;transition:opacity .25s}
+.asnav a .aic svg{width:100%;height:100%}
+.asnav a:hover,.asnav a[aria-current=page]{background:linear-gradient(-90deg,rgba(30,79,214,.09),rgba(30,79,214,.03));border-color:rgba(243,247,252,.06);color:#F3F7FC}
+.asnav a:hover .aic,.asnav a[aria-current=page] .aic{opacity:1}
+
+.asidebar-bottom{display:flex;gap:.7rem}
+.associal{display:flex;align-items:center;justify-content:center;gap:1.1rem;flex:1;padding:.7rem 0}
+.associal a{color:rgba(243,247,252,.7);transition:color .25s}
+.associal a:hover{color:#F3F7FC}
+.associal svg{width:16px;height:16px}
+.ascopy{flex:none;display:flex;align-items:center;gap:.6rem;margin:0;padding:.6rem .8rem;font-size:.72rem;color:rgba(243,247,252,.7)}
+.asprog{width:3px;height:22px;border-radius:3px;background:rgba(243,247,252,.1);overflow:hidden}
 .asprog i{display:block;width:100%;height:0%;background:var(--ter);border-radius:3px}
 @media(prefers-reduced-motion:reduce){.asclock{opacity:.6}}
+@media(max-width:780px){
+ .asidebar{width:72px;padding:1.1rem .6rem}
+ .aslogotext,.asme-content,.aslabel,.asclock{display:none}
+ .aslogorow{justify-content:center}
+ .asme{padding:0;justify-content:center;background:none;border:0}
+ .asme-img{width:38px;height:38px}
+ .asnav a{justify-content:center;padding:.7rem .4rem}
+ .associal{flex-direction:column;gap:.8rem;padding:.8rem 0}
+ .ascopy{display:none}
+}
 
 .apanel{flex:1;min-width:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(243,247,252,.25) transparent}
 .apanel-in{display:flex;flex-direction:column;gap:14px;padding-bottom:1rem}
@@ -75,17 +110,19 @@ body.appshell{background:#070B14;color:#F3F7FC;height:100vh;overflow:hidden}
 /* transform is never put in this element's CSS `transition` list: GSAP drives every transform on
    .acard (entrance tweens, scroll reveals, the hover lift below) by writing to it every frame, and a
    CSS transition on the same property fights that, chasing each frame's value and never settling */
-.acard{background:rgba(243,247,252,.035);border:1px solid rgba(243,247,252,.12);border-radius:1rem;padding:1.5rem;position:relative;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s;text-decoration:none;color:inherit;display:block}
-.acard:hover{border-color:rgba(243,247,252,.25);background:rgba(243,247,252,.055);box-shadow:0 20px 36px -22px rgba(0,0,0,.6)}
+.acard{background:radial-gradient(51% 51% at 49% 48%,rgba(30,79,214,.09) 0%,rgba(30,79,214,0) 100%);border:1px solid rgba(243,247,252,.06);border-radius:.4rem;padding:1.5rem;position:relative;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s;text-decoration:none;color:inherit;display:block}
+.acard:hover{border-color:rgba(243,247,252,.16);box-shadow:0 20px 36px -22px rgba(0,0,0,.6)}
 .acard h2{margin:.4rem 0 0}
 @media(prefers-reduced-motion:reduce){.acard{transition:border-color .3s,background .3s}}
 
-.pill-row{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:.92rem;padding:1.1rem 1.4rem}
-.pill-row .aic{width:16px;height:16px;flex:none;opacity:.7}
+/* hero top strip: one bordered box with internal flex segments, not three separate cards */
+.herotop{display:flex;gap:1rem;padding:.8rem;margin-bottom:14px}
+.pill-seg{display:flex;align-items:center;justify-content:center;gap:.6rem;flex:1;font-weight:700;font-size:.92rem;padding:.9rem 1.3rem;color:inherit;text-decoration:none;background:rgba(243,247,252,.03);border:1px solid rgba(243,247,252,.04);border-radius:.3rem;transition:background .25s,color .25s,border-color .25s}
+.pill-seg .aic{width:16px;height:16px;flex:none;opacity:.7}
 .dot{width:8px;height:8px;border-radius:50%;background:#7CCB7A;flex:none;box-shadow:0 0 0 0 rgba(124,203,122,.6);animation:pulse 2.2s infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 8px rgba(124,203,122,0)}100%{box-shadow:0 0 0 0 rgba(124,203,122,0)}}
-.pill-row.pcta{justify-content:space-between;background:rgba(243,247,252,.07)}
-.pill-row.pcta:hover{background:var(--ter);color:var(--ink);border-color:var(--ter)}
+.pill-seg.pcta:hover{background:var(--ter);color:var(--ink);border-color:var(--ter)}
+@media(max-width:700px){.herotop{flex-direction:column}}
 
 .eyebrow{display:flex;align-items:center;gap:.6rem;font:700 .8rem var(--f);letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin:0 0 .6rem}
 .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--ter);display:inline-block;flex:none}

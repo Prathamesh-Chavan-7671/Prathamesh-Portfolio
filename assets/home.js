@@ -13,24 +13,24 @@ gsap.registerPlugin(ScrollTrigger);
 const burger=$('#burger'),menu=$('#menu');let menuOpen=false;
 function setMenu(o){menuOpen=o;burger.setAttribute('aria-expanded',o);burger.setAttribute('aria-label',o?'Close menu':'Open menu');menu.setAttribute('aria-hidden',!o);
  document.documentElement.style.overflow=o?'hidden':'';
- if(o){menu.classList.add('open');if(!calm){gsap.fromTo(menu,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:.6,ease:'power4.inOut'});
-  gsap.from('#menu li',{y:50,opacity:0,stagger:.07,duration:.6,delay:.25,ease:'power3.out'});}}
- else if(calm)menu.classList.remove('open');
- else gsap.to(menu,{clipPath:'inset(0 0 100% 0)',duration:.45,ease:'power4.inOut',onComplete:()=>menu.classList.remove('open')});}
+ /* the open/close motion itself is the CSS transition on .menu.simple (same as every other page's
+    menu.js); only the staggered link reveal is GSAP's, on a different property, so the two never fight */
+ menu.classList.toggle('open',o);
+ if(o&&!calm)gsap.from('#menu li',{y:50,opacity:0,stagger:.07,duration:.6,delay:.25,ease:'power3.out'});}
 burger.onclick=()=>setMenu(!menuOpen);
 $$('#menu a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOpen){setMenu(false);burger.focus();}});
 
 /* photo: loaded from PHOTO_URL (set at the top of this file) */
-const h2bg=$('#h2bg'),pimg=$('#pimg');
-if(PHOTO_URL){pimg.onload=()=>h2bg.classList.add('has');pimg.onerror=()=>h2bg.classList.remove('has');pimg.src=PHOTO_URL;}
+const h2bg=$('#h2bg'),pimg=$('#pimg'),spimg=$('#spimg');
+if(PHOTO_URL){pimg.onload=()=>h2bg.classList.add('has');pimg.onerror=()=>h2bg.classList.remove('has');pimg.src=PHOTO_URL;spimg.src=PHOTO_URL;}
 
 /* hero headline words */
 const h1=$('#h1');h1.setAttribute('aria-label',h1.textContent);
 h1.innerHTML=h1.textContent.split(' ').map(w=>`<span class="w" aria-hidden="true"><i>${w}</i></span>`).join(' ');
 if(!calm){gsap.from('.asidebar',{x:-20,opacity:0,duration:.7,ease:'power3.out'});
  gsap.from('#h1 i',{yPercent:110,rotate:6,stagger:.09,duration:.8,ease:'power4.out',delay:.1});
- gsap.from('#top .pill-row',{y:24,opacity:0,scale:.96,stagger:.08,duration:.6,delay:.15,ease:'back.out(1.6)'});
+ gsap.from('#top .pill-seg',{y:24,opacity:0,scale:.96,stagger:.08,duration:.6,delay:.15,ease:'back.out(1.6)'});
  gsap.from('.eyebrow,.sub,.h2cta',{y:20,opacity:0,stagger:.1,duration:.7,delay:.35});
  gsap.from('#h2bg img',{scale:1.1,duration:1.3,ease:'power2.out'});
  gsap.from('.aside-stack .mini,.orb',{y:24,opacity:0,scale:.94,stagger:.08,duration:.6,delay:.4,ease:'back.out(1.6)'});}
