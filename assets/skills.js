@@ -7,8 +7,8 @@ find.addEventListener('input',function(e){
   var h=q&&c.textContent.toLowerCase().indexOf(q)>-1;
   if(h)m++;
   c.style.opacity=!q||h?1:.3;
-  c.style.background=h?'#790B13':'';
-  c.style.color=h?'#FFF8EE':'';
+  c.style.background=h?'#1E4FD6':'';
+  c.style.color=h?'#F3F7FC':'';
  });
  count.textContent=q?(m?m+' match'+(m>1?'es':''):'No matches yet'):'';
 });

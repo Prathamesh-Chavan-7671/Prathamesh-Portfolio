@@ -80,8 +80,8 @@ if(!calm)$$('.acard:not(.projcard)').forEach(el=>{
 /* scratch card */
 const cv=$('#cv'),sc=$('#sc'),ctx=cv.getContext('2d');let done=false,down=false,n=0;
 function paint(){if(done)return;const k=sc.getBoundingClientRect();cv.width=k.width;cv.height=k.height;ctx.globalCompositeOperation='source-over';
- const g=ctx.createLinearGradient(0,0,k.width,k.height);g.addColorStop(0,'#790B13');g.addColorStop(1,'#B5565C');ctx.fillStyle=g;ctx.fillRect(0,0,k.width,k.height);
- ctx.fillStyle='#FFF8EE';ctx.font='900 '+Math.min(56,k.width/9)+'px Hanken Grotesk,sans-serif';ctx.textAlign='center';ctx.fillText('Scratch me',k.width/2,k.height/2);}
+ const g=ctx.createLinearGradient(0,0,k.width,k.height);g.addColorStop(0,'#1E4FD6');g.addColorStop(1,'#4C7FE8');ctx.fillStyle=g;ctx.fillRect(0,0,k.width,k.height);
+ ctx.fillStyle='#F3F7FC';ctx.font='900 '+Math.min(56,k.width/9)+'px Hanken Grotesk,sans-serif';ctx.textAlign='center';ctx.fillText('Scratch me',k.width/2,k.height/2);}
 document.fonts.ready.then(paint);addEventListener('resize',paint);
 function scratch(e){if(!down||done)return;const k=cv.getBoundingClientRect();ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(e.clientX-k.left,e.clientY-k.top,28,0,7);ctx.fill();
  if(++n%10)return;const d=ctx.getImageData(0,0,cv.width,cv.height).data;let c=0,t=0;for(let i=3;i<d.length;i+=64){t++;if(!d[i])c++;}
