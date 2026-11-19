@@ -59,9 +59,8 @@ $$('#main>.apanel-in>section[id]').forEach(sec=>{
 /* section marquees: duplicate each strip's text so the CSS loop is seamless */
 $$('.smarq span').forEach(s=>s.insertAdjacentHTML('afterend',s.outerHTML));
 
-/* project cards: pointer-based 3D tilt and a slow drifting accent shape */
+/* project cards: pointer-based 3D tilt */
 if(!calm)$$('.projcard').forEach(c=>{
- gsap.to(c.querySelectorAll('.art i'),{y:i=>(i%2?10:-10),rotate:i=>i*20,duration:2.5,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:.3});
  c.addEventListener('pointermove',e=>{const k=c.getBoundingClientRect();gsap.to(c,{rotateX:-((e.clientY-k.top)/k.height-.5)*6,rotateY:((e.clientX-k.left)/k.width-.5)*6,transformPerspective:1000,duration:.5,ease:'power2.out'});});
  c.addEventListener('pointerleave',()=>gsap.to(c,{rotateX:0,rotateY:0,duration:.7,ease:'elastic.out(1,.5)'}));});
 

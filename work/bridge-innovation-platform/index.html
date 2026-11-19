@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1E4FD6">
+<title>BRIDGE &mdash; Mumbai Biocluster | Prathamesh Chavan</title>
+<meta name="description" content="BRIDGE: an innovation and industry collaboration platform I built for Mumbai Biocluster, with an Open Challenges directory and submission intake for biotech researchers, startups and industry partners.">
+<meta name="author" content="Prathamesh Chavan">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://prathamesh-portfolio-silk.vercel.app/work/bridge-innovation-platform/">
+<meta property="og:site_name" content="Prathamesh Chavan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BRIDGE &mdash; Mumbai Biocluster | Prathamesh Chavan">
+<meta property="og:description" content="BRIDGE: an innovation and industry collaboration platform I built for Mumbai Biocluster, with an Open Challenges directory and submission intake for biotech researchers, startups and industry partners.">
+<meta property="og:url" content="https://prathamesh-portfolio-silk.vercel.app/work/bridge-innovation-platform/">
+<meta property="og:image" content="https://prathamesh-portfolio-silk.vercel.app/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prathamesh Chavan, full stack web developer">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BRIDGE &mdash; Mumbai Biocluster | Prathamesh Chavan">
+<meta name="twitter:description" content="BRIDGE: an innovation and industry collaboration platform I built for Mumbai Biocluster, with an Open Challenges directory and submission intake for biotech researchers, startups and industry partners.">
+<meta name="twitter:image" content="https://prathamesh-portfolio-silk.vercel.app/assets/og-default.png">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="nv" id="nv"><div class="nvin static" id="nvin">
+ <a class="brand" href="../../" aria-label="Prathamesh Chavan, home"><span class="mono">PC</span><span class="nm">Prathamesh Chavan</span></a>
+ <nav class="links" aria-label="Primary"><a href="../../">Home</a><a href="../../work/" aria-current="page">Work</a><a href="../../experience/">Experience</a><a href="../../skills/">Skills</a><a href="../../security/">Security</a><a href="../../writing/">Writing</a></nav>
+ <a class="go" href="../../#contact">Get in touch <span aria-hidden="true">&rarr;</span></a>
+ <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span class="ic"><i></i><i></i><i></i></span><span class="btxt">Menu</span></button>
+</div></div>
+<div class="menu simple" id="menu" aria-hidden="true"><nav aria-label="Full menu"><ol class="mlist">
+ <li><small>01</small><a href="../../">Home</a></li>
+ <li><small>02</small><a href="../../work/" aria-current="page">Work</a></li>
+ <li><small>03</small><a href="../../experience/">Experience</a></li>
+ <li><small>04</small><a href="../../skills/">Skills</a></li>
+ <li><small>05</small><a href="../../security/">Security</a></li>
+ <li><small>06</small><a href="../../writing/">Writing</a></li>
+ <li><small>07</small><a href="../../#contact">Get in touch</a></li>
+</ol></nav></div>
+<div class="pg" id="pg" aria-hidden="true"></div>
+<main id="main"><article>
+<header class="ahero"><div class="wrap">
+ <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../../">Home</a></li><li><a href="../../#work">Work</a></li><li aria-current="page">BRIDGE &mdash; Mumbai Biocluster</li></ol></nav>
+ <h1>BRIDGE &mdash; Mumbai Biocluster</h1>
+ <p class="lede">An innovation and industry collaboration platform I built for Mumbai Biocluster, connecting biotechnology researchers, startups and industry partners around real challenges &mdash; from open-challenge discovery to submission intake.</p>
+ <p class="meta"><span>Role: Solo</span><span>Status: Built, pending deployment</span></p>
+ <ul class="tags" aria-label="Tech stack"><li>React</li><li>TypeScript</li><li>Vite</li><li>Tailwind CSS</li><li>React Router</li><li>Google Forms</li></ul>
+</div></header>
+<div class="abody"><div class="wrap"><img class="pshot" src="https://ik.imagekit.io/c9crfmeez/Bridge.png" alt="BRIDGE innovation platform screenshot" loading="lazy"></div>
+<div class="wrap alayout">
+ <div class="prose">
+<h2 id="problem">Problem</h2>
+<p>Innovators &mdash; researchers, startups, academic groups &mdash; and the industry partners who could work with them had no shared digital space in Mumbai Biocluster's biotechnology ecosystem: no way to discover real industry challenges, submit a solution, or connect with the organizations behind a problem statement. That coordination was happening ad hoc, outside any platform.</p>
+<h2 id="what-i-built">What I built</h2>
+<p>A six-page platform &mdash; Home, For Innovators, Open Challenges, How BRIDGE Works, About, Contact &mdash; on a component-based, configuration-driven React and TypeScript front end. Vite handles the build, Tailwind CSS with custom design tokens carries Mumbai Biocluster's BRIDGE branding (a teal-and-gold palette), and React Router ties the six pages together.</p>
+<h3>Key features</h3>
+<ul>
+<li>A data-driven Open Challenges directory, typed with TypeScript interfaces (title, description, category, timeline, organization, status), so it can move to a real API later without a UI rebuild</li>
+<li>Innovation and industry-challenge submission intake through integrated Google Forms, rather than duplicating a form-processing workflow the organization already relies on</li>
+<li>Reusable navigation, footer, layout and challenge-card components for consistency and faster iteration</li>
+<li>Centralized TypeScript configuration for form links, navigation and contact details, so routine updates don't touch page components</li>
+<li>A custom, mobile-first responsive design system matching Mumbai Biocluster's BRIDGE branding</li>
+</ul>
+<h2 id="challenge">The hardest part</h2>
+<p>Deciding what not to build. Mumbai Biocluster already had a working intake process built around Google Forms; replacing it with a custom submission backend would have meant rebuilding and re-validating an evaluation workflow that already worked, for no real benefit yet. I integrated the existing forms instead and put the engineering effort where it was actually needed &mdash; the challenge directory's data model and the component architecture &mdash; so a future move to a real database or API doesn't require a UI rewrite.</p>
+<h2 id="result">Result</h2>
+<p>Delivered the initial front-end codebase: a six-page platform with a working Open Challenges directory, submission-form integrations, and a centralized configuration layer, ready for a production build and deploy.</p>
+<h2 id="see-it">See it</h2>
+<p>Not yet live &mdash; built and ready for deployment at <a href="https://bridge.mumbaibiocluster.org" target="_blank" rel="noopener">bridge.mumbaibiocluster.org</a>.</p>
+</div>
+ <aside class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">Problem</a></li><li><a href="#what-i-built">What I built</a></li><li><a href="#challenge">The hardest part</a></li><li><a href="#result">Result</a></li><li><a href="#see-it">See it</a></li></ol></aside>
+</div></div>
+<div class="wrap"><a class="postcard" href="../inventory-management-app/"><small>NEXT PROJECT</small><h3>NRG LIMS</h3><span class="more">View project &rarr;</span></a></div>
+</article></main>
+<footer><div class="wrap fw"><span>&copy; 2026 Prathamesh Chavan</span><nav aria-label="Footer"><a href="../../">Home</a><a href="../../writing/">Writing</a><a href="https://www.linkedin.com/in/prathamesh-chavan-developer" rel="me noopener">LinkedIn</a><a href="https://github.com/Prathamesh-Chavan-7671" rel="me noopener">GitHub</a></nav></div></footer>
+<script src="../../assets/page.js"></script>
+</body>
+</html>
