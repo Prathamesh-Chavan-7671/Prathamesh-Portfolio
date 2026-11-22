@@ -9,6 +9,22 @@ const mail=$('#mail');mail.textContent=CONTACT_EMAIL;$('#mailto').setAttribute('
 if(!window.gsap||!window.ScrollTrigger)return;
 gsap.registerPlugin(ScrollTrigger);
 
+/* Three.js hero object: a small physical-looking orbit that reacts to the pointer,
+   but stays purely decorative and disappears when motion is reduced. */
+const threeCanvas=$('#hero-3d');
+if(!calm&&threeCanvas&&window.THREE){
+ const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(38,1,.1,100),renderer=new THREE.WebGLRenderer({canvas:threeCanvas,alpha:true,antialias:true});
+ renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setClearColor(0x000000,0);camera.position.set(0,0,6.8);
+ const rig=new THREE.Group(),orbit=new THREE.Group();rig.add(orbit);scene.add(rig);
+ const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(1.32,.18,150,20),new THREE.MeshPhysicalMaterial({color:0xc6923f,metalness:.48,roughness:.24,transparent:true,opacity:.86,clearcoat:1,clearcoatRoughness:.12}));
+ const shell=new THREE.Mesh(new THREE.IcosahedronGeometry(1.84,2),new THREE.MeshBasicMaterial({color:0xf3ebd0,wireframe:true,transparent:true,opacity:.14}));
+ orbit.add(knot,shell);shell.rotation.set(.4,.5,0);const key=new THREE.PointLight(0xffc36d,15,12),fill=new THREE.PointLight(0x88d9be,9,10);key.position.set(3,3,4);fill.position.set(-4,-2,3);scene.add(key,fill,new THREE.AmbientLight(0xf3ebd0,1.2));
+ function sizeThree(){const b=threeCanvas.getBoundingClientRect();if(!b.width||!b.height)return;renderer.setSize(b.width,b.height,false);camera.aspect=b.width/b.height;camera.updateProjectionMatrix();}sizeThree();addEventListener('resize',sizeThree);
+ let mx=0,my=0;$('#top').addEventListener('pointermove',e=>{const b=threeCanvas.getBoundingClientRect();mx=(e.clientX-b.left)/b.width-.5;my=(e.clientY-b.top)/b.height-.5;});
+ gsap.to(rig.rotation,{y:Math.PI*.85,ease:'none',scrollTrigger:{trigger:'#top',scroller:'#main',start:'top top',end:'bottom top',scrub:1}});
+ function renderThree(t){if(!document.hidden){orbit.rotation.x+=.003;orbit.rotation.y+=.005;orbit.rotation.x+=(my*.45-orbit.rotation.x)*.025;orbit.rotation.z+=(mx*.35-orbit.rotation.z)*.025;renderer.render(scene,camera);}requestAnimationFrame(renderThree);}requestAnimationFrame(renderThree);
+}
+
 /* sidebar menu toggle: opens the same full-page menu overlay the other pages use */
 const burger=$('#burger'),menu=$('#menu');let menuOpen=false;
 function setMenu(o){menuOpen=o;burger.setAttribute('aria-expanded',o);burger.setAttribute('aria-label',o?'Close menu':'Open menu');menu.setAttribute('aria-hidden',!o);
@@ -33,7 +49,8 @@ if(!calm){gsap.from('.asidebar',{x:-20,opacity:0,duration:.7,ease:'power3.out'})
  gsap.from('#top .pill-seg',{y:24,opacity:0,scale:.96,stagger:.08,duration:.6,delay:.15,ease:'back.out(1.6)'});
  gsap.from('.eyebrow,.sub,.h2cta',{y:20,opacity:0,stagger:.1,duration:.7,delay:.35});
  gsap.from('#h2bg img',{scale:1.1,duration:1.3,ease:'power2.out'});
- gsap.from('.aside-stack .mini,.orb',{y:24,opacity:0,scale:.94,stagger:.08,duration:.6,delay:.4,ease:'back.out(1.6)'});}
+ gsap.from('.aside-stack .mini,.orb',{y:24,opacity:0,scale:.94,stagger:.08,duration:.6,delay:.4,ease:'back.out(1.6)'});
+ gsap.to('.hero-3d',{y:120,rotate:8,opacity:.32,ease:'none',scrollTrigger:{trigger:'#top',scroller:'#main',start:'top top',end:'bottom top',scrub:1}});}
 
 /* live clocks: Mumbai time. Sidebar shows a compact HH:MM, the hero card shows the full date */
 const clockEl=$('#clocktext'),sclock=$('#sclock');
