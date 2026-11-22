@@ -1,3 +1,4 @@
+@import url("editorial.css");
 :root{--bl:#2F4A3A;--ink:#1E3428;--bg:#F3EBD0;--mute:#526455;--lb:#E2D9BA;--ter:#C6923F;--f:'Hanken Grotesk',system-ui,sans-serif;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box}
