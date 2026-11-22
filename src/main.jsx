@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import './home.css';
 import './portrait.css';
+import './mobile-portrait.css';
 import './security-graphic.css';
 
 const projects = [
