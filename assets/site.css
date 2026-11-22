@@ -207,6 +207,7 @@ body.appshell{background:var(--ink);color:var(--bg);height:100vh;overflow:hidden
 .arow.work-row>.projcard h3{font-size:clamp(1.35rem,2vw,1.7rem);margin:1rem 0 .55rem}
 .arow.work-row>.projcard p{margin-bottom:1rem}
 .arow.work-row>.projcard .textlink2{margin-top:auto;align-self:flex-start}
+.project-kicker{font:700 .73rem/1.35 var(--f)!important;letter-spacing:.08em;text-transform:uppercase;opacity:.7!important;margin:.05rem 0 0!important}
 @media(max-width:700px){.arow.work-row{grid-template-columns:1fr;grid-auto-rows:auto}.arow.work-row>.projcard{min-height:0}}
 @media(max-width:980px){.projcard.r2,.projcard.r3{justify-content:flex-start}.projcard.r2 .pthumb,.projcard.r3 .pthumb{flex:none;aspect-ratio:16/10}.projcard.r2 h3,.projcard.r3 h3{font-size:1.6rem}}
 .c1{background:var(--bl);color:var(--bg);border-color:transparent}.c2{background:#365744;color:var(--bg);border-color:transparent}.c3{background:var(--lb);color:var(--ink);border-color:transparent}.c4{background:#274030;color:var(--bg);border-color:transparent}
