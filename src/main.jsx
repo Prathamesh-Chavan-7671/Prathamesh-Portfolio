@@ -1,0 +1,32 @@
+import React, { Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
+import { motion, useReducedMotion } from 'framer-motion';
+import './home.css';
+
+const HeroScene = React.lazy(() => import('./HeroScene.jsx'));
+
+const projects = [
+  { title: 'Knowledge-sharing platform', label: 'Editorial platform · Multi-role workflows', copy: 'Publishing and peer review in one structured workspace for contributors, editors and reviewers.', image: 'https://ik.imagekit.io/c9crfmeez/Pharminsight.png', href: 'work/knowledge-sharing-platform/', tone: 'sage' },
+  { title: 'NRG LIMS', label: 'Research operations · Lab lifecycle', copy: 'One platform for inventory, procurement, samples, safety and research publications.', image: 'https://ik.imagekit.io/c9crfmeez/LIMS%20Dashboard.png', href: 'work/inventory-management-app/', tone: 'moss' },
+  { title: 'Exhibitor Engagement Program', label: 'Event engagement · Progressive web app', copy: 'QR-led booth engagement with quizzes and a live leaderboard for conference teams.', image: 'https://ik.imagekit.io/c9crfmeez/event.png', href: 'work/event-gamification-app/', tone: 'cream' },
+  { title: 'BRIDGE', label: 'Innovation platform · Industry collaboration', copy: 'A collaboration space for Mumbai Biocluster and industry partners, built for deployment.', image: 'https://ik.imagekit.io/c9crfmeez/Bridge.png', href: 'work/bridge-innovation-platform/', tone: 'forest' }
+];
+
+const rise = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: .65, ease: [0.22, 1, 0.36, 1] } } };
+
+function App() {
+  const reduced = useReducedMotion();
+  return <main>
+    <nav className="nav"><a className="brand" href="#top"><b>PC</b><span>Prathamesh Chavan</span></a><div className="navlinks"><a href="#work">Work</a><a href="#experience">Experience</a><a href="#security">Security</a><a href="writing/">Writing</a></div><a className="navcta" href="#contact">Start a project</a></nav>
+    <section className="hero" id="top"><div className="hero-noise" /><div className="hero-copy"><motion.p variants={rise} initial="hidden" animate="show" className="eyebrow">Full-stack engineer · Mumbai, India</motion.p><motion.h1 variants={rise} initial="hidden" animate="show" transition={{ delay: .08 }}>Production platforms,<br /><em>built to hold up.</em></motion.h1><motion.p variants={rise} initial="hidden" animate="show" transition={{ delay: .16 }} className="lede">I design and ship web software from interface to deployment, with security-minded engineering built in from the start.</motion.p><motion.div variants={rise} initial="hidden" animate="show" transition={{ delay: .24 }} className="hero-actions"><a className="button primary" href="#contact">Start a project</a><a className="textlink" href="#work">Explore selected work</a></motion.div></div><div className="hero-art" aria-hidden="true">{!reduced && <Suspense fallback={null}><HeroScene /></Suspense>}</div><div className="hero-meta"><span>Available for new work</span><span>Next.js · PostgreSQL · Docker</span></div></section>
+    <section className="proof" aria-label="Portfolio highlights"><div><strong>2+</strong><span>Years in production</span></div><div><strong>3</strong><span>Live platforms shipped</span></div><div><strong>45.7%</strong><span>Traffic growth delivered</span></div></section>
+    <section className="section work" id="work"><div className="section-head"><p>01 / Selected work</p><h2>Work that makes complex operations feel straightforward.</h2><a className="textlink" href="work/">View all projects</a></div><div className="project-grid">{projects.map((project, i) => <motion.a key={project.title} href={project.href} className={`project-card ${project.tone}`} initial={reduced ? false : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ delay: i * .08, duration: .55 }} whileHover={reduced ? {} : { y: -8, rotateX: 2, rotateY: i % 2 ? -2 : 2 }}><div className="project-image"><img src={project.image} alt={`${project.title} interface`} loading="lazy" /></div><p>{project.label}</p><h3>{project.title}</h3><span>{project.copy}</span><b>View project <i>↗</i></b></motion.a>)}</div></section>
+    <section className="section experience" id="experience"><div className="section-head"><p>02 / Experience</p><h2>Full-stack work, connected to real-world outcomes.</h2></div><div className="timeline"><article><span>2024 — present</span><div><h3>SEO &amp; Digital Growth</h3><p>Biologics Workshop</p></div></article><article><span>2024 — present</span><div><h3>Full Stack Software Engineer</h3><p>Mumbai Biocluster</p></div></article><article><span>2024</span><div><h3>Frontend Developer Intern</h3><p>Essentia.dev</p></div></article></div></section>
+    <section className="section security" id="security"><div><p>03 / Security-minded delivery</p><h2>Security is part of the build, not a follow-up task.</h2><p className="lede">I am developing practical application-security skills alongside full-stack work—thinking about authentication, access control and safe data handling from the first implementation.</p><a className="button secondary" href="security/">Explore security work</a></div><div className="security-orbit" aria-hidden="true"><span>AUTH</span><span>RBAC</span><span>DATA</span><span>DEPLOY</span><i /></div></section>
+    <section className="section writing"><div className="section-head"><p>04 / Writing</p><h2>Notes from the work.</h2></div><a className="article" href="writing/endpoint-security-capacity-assessment/"><small>CASE STUDY · 14 NOVEMBER 2026</small><h3>From a Slow Phone to a GRC Risk Assessment: My First Learning Project</h3><span>Read the case study ↗</span></a></section>
+    <section className="contact" id="contact"><p>05 / Contact</p><h2>Have a platform<br />to build?</h2><a href="mailto:prathameshchavan8652@gmail.com">prathameshchavan8652@gmail.com</a><span>Tell me what you need to build, improve or secure.</span></section>
+    <footer>© 2026 Prathamesh Chavan <span><a href="skills/">Skills</a><a href="writing/">Writing</a><a href="https://www.linkedin.com/in/prathamesh-chavan-developer" rel="noreferrer">LinkedIn</a></span></footer>
+  </main>;
+}
+
+createRoot(document.getElementById('root')).render(<App />);
