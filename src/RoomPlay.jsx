@@ -21,7 +21,7 @@ export default function RoomPlay() {
     scene.add(key);
     const group = new THREE.Group();
     scene.add(group);
-    let frame; let start = performance.now(); let drag = false; let lastX = 0; let orbit = -.4;
+    let frame; let start = performance.now(); let drag = false; let lastX = 0; let orbit = -.4; let previewPan = 0;
     new GLTFLoader().load('assets/true-3d-developer-room.glb', (gltf) => {
       const model = gltf.scene;
       const box = new THREE.Box3().setFromObject(model);
@@ -46,8 +46,15 @@ export default function RoomPlay() {
       renderer.render(scene, camera);
       frame = requestAnimationFrame(render);
     };
-    const down = (event) => { drag = true; lastX = event.clientX; canvas.setPointerCapture(event.pointerId); };
-    const move = (event) => { if (!drag) return; orbit += (event.clientX - lastX) * .008; lastX = event.clientX; };
+    const down = (event) => { drag = true; lastX = event.clientX; canvas.setPointerCapture(event.pointerId); setStatus('Exploring the workspace…'); };
+    const move = (event) => {
+      if (!drag) return;
+      const delta = event.clientX - lastX;
+      orbit += delta * .008;
+      previewPan = THREE.MathUtils.clamp(previewPan + delta * .32, -72, 72);
+      canvas.parentElement.style.setProperty('--room-pan', `${previewPan}px`);
+      lastX = event.clientX;
+    };
     const up = () => { drag = false; };
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
