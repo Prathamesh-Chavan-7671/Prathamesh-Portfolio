@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 export default function RoomPlay() {
   const canvasRef = useRef(null);
   const actionRef = useRef('idle');
-  const [status, setStatus] = useState('The pets are exploring the studio.');
+  const [status, setStatus] = useState('Drag to explore the developer workspace.');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -21,8 +21,8 @@ export default function RoomPlay() {
     scene.add(key);
     const group = new THREE.Group();
     scene.add(group);
-    let puppy; let cat; let ball; let frame; let start = performance.now(); let drag = false; let lastX = 0; let orbit = -.4;
-    new GLTFLoader().load('assets/cyberpunk-room.glb', (gltf) => {
+    let frame; let start = performance.now(); let drag = false; let lastX = 0; let orbit = -.4;
+    new GLTFLoader().load('assets/true-3d-developer-room.glb', (gltf) => {
       const model = gltf.scene;
       const box = new THREE.Box3().setFromObject(model);
       const center = box.getCenter(new THREE.Vector3());
@@ -30,9 +30,6 @@ export default function RoomPlay() {
       const size = box.getSize(new THREE.Vector3()).length();
       model.scale.setScalar(11 / size);
       group.add(model);
-      puppy = model.getObjectByName('Puppy body');
-      cat = model.getObjectByName('Cat body');
-      ball = model.getObjectByName('Interactive neon ball');
     });
     const resize = () => {
       const { width, height } = canvas.getBoundingClientRect();
@@ -44,8 +41,8 @@ export default function RoomPlay() {
     const render = (now) => {
       const t = (now - start) / 1000;
       group.rotation.y += ((orbit + Math.sin(t * .15) * .07) - group.rotation.y) * .06;
-      if (actionRef.current === 'ball' && ball) { ball.position.y = Math.abs(Math.sin(t * 5)) * .55; ball.position.x = Math.sin(t * 2.2) * .35; if (puppy) puppy.rotation.z = Math.sin(t * 5) * .16; }
-      if (actionRef.current === 'tunnel' && cat) { cat.position.x = Math.sin(t * 2.5) * .5; cat.rotation.z = Math.sin(t * 5) * .12; }
+      if (actionRef.current === 'focus') { camera.position.lerp(new THREE.Vector3(7, -8, 5.2), .03); }
+      if (actionRef.current === 'wide') { camera.position.lerp(new THREE.Vector3(10, -11, 7.5), .03); }
       renderer.render(scene, camera);
       frame = requestAnimationFrame(render);
     };
@@ -61,12 +58,12 @@ export default function RoomPlay() {
 
   const play = (type) => {
     actionRef.current = type;
-    setStatus(type === 'ball' ? 'Puppy is chasing the glowing ball.' : 'Cat is sprinting through the tunnel.');
-    window.setTimeout(() => { actionRef.current = 'idle'; setStatus('The pets are exploring the studio.'); }, 3800);
+    setStatus(type === 'focus' ? 'Focusing on the desk setup.' : 'Returning to the wide room view.');
+    window.setTimeout(() => { actionRef.current = 'idle'; setStatus('Drag to explore the developer workspace.'); }, 2400);
   };
 
   return <section className="room-play" aria-label="Interactive portfolio room">
-    <div className="room-copy"><p>Studio mode / interactive</p><h2>Step inside the workspace.</h2><span>Drag through the room, then start a tiny bit of chaos.</span><div className="pet-controls"><button type="button" onClick={() => play('ball')}>Toss the ball</button><button type="button" onClick={() => play('tunnel')}>Open the tunnel</button></div><small aria-live="polite">{status}</small></div>
-    <div className="room-canvas"><canvas ref={canvasRef} aria-label="Interactive 3D cyberpunk workspace with developer and pets" /><i>Drag to explore</i></div>
+    <div className="room-copy"><p>Studio mode / interactive</p><h2>Step inside the workspace.</h2><span>Drag through the room or switch between a focused desk view and the full studio.</span><div className="pet-controls"><button type="button" onClick={() => play('focus')}>Focus desk</button><button type="button" onClick={() => play('wide')}>Wide room</button></div><small aria-live="polite">{status}</small></div>
+    <div className="room-canvas"><canvas ref={canvasRef} aria-label="Interactive 3D developer workspace" /><i>Drag to explore</i></div>
   </section>;
 }
