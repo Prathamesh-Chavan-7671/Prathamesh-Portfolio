@@ -30,7 +30,7 @@ export default function RoomPlay() {
       const size = box.getSize(new THREE.Vector3()).length();
       model.scale.setScalar(11 / size);
       group.add(model);
-    });
+    }, undefined, () => setStatus('Room preview is ready while the interactive model reconnects.'));
     const resize = () => {
       const { width, height } = canvas.getBoundingClientRect();
       if (!width || !height) return;
