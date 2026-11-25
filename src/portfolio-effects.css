@@ -1,0 +1,35 @@
+.hero > .hero-cursor-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.project-card .project-glare {
+  display: block;
+  flex: none;
+}
+
+.project-border.border-glow-card {
+  border: 0;
+  box-shadow: none;
+}
+
+.project-border .border-glow-inner {
+  display: grid;
+}
+
+.project-card > .project-target {
+  align-self: flex-start;
+}
+
+.work .scroll-float-text,
+.security .scroll-reveal-text {
+  font: inherit;
+  text-align: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

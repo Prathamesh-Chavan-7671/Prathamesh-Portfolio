@@ -9,3 +9,4 @@ for (const name of ['assets', 'experience', 'security', 'skills', 'work', 'writi
 for (const name of ['robots.txt', 'sitemap.xml']) {
   await copyFile(resolve(root, name), resolve(dist, name));
 }
+await copyFile(resolve(root, 'src/react-bits/LICENSE.md'), resolve(dist, 'assets/react-bits-license.md'));
