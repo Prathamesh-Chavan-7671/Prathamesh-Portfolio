@@ -82,7 +82,8 @@ function App() {
       clickEffect={false} parallaxOn={false} cursorColor="#f3ebd0" blendMode="normal" thickness={2} padding={3} />}
     <GradualBlur target="page" position="top" height={76} layers={5} strength={0.45} tint="#1e342835" zIndex={19} />
     <nav className="nav"><a className="brand" href="#top"><b>PC</b><span>Prathamesh Chavan</span></a><div className="navlinks"><a href="#work">Work</a><a href="#experience">Experience</a><a href="#security">Security</a><a href="writing/">Writing</a></div><a className="navcta" href="#contact">Start a project</a></nav>
-    <section className="hero" id="top" ref={heroRef}><div className="hero-noise" />
+    <section className="hero" id="top" ref={heroRef}><div className="hero-slats" aria-hidden="true" />
+      <div className="hero-noise" />
       {interactive && <Suspense fallback={null}>
         <GlowCursor className="hero-cursor-glow" aria-hidden="true" color="#78b391" secondaryColor="#d4b16e"
           intensity={0.58} trailWidth={2} linger={0.65} glow={0.55} hotspot={0.35}

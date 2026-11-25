@@ -1,3 +1,61 @@
+/* Fluted glass sits behind the portrait, cursor and hero copy. */
+.hero-slats {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #14291f;
+}
+
+.hero-slats::before,
+.hero-slats::after {
+  content: '';
+  position: absolute;
+}
+
+.hero-slats::before {
+  inset: -14%;
+  background:
+    radial-gradient(ellipse at 73% 23%, #b78b54 0%, transparent 28%),
+    radial-gradient(ellipse at 83% 65%, #527d69 0%, transparent 35%),
+    radial-gradient(ellipse at 65% 82%, #406d61 0%, transparent 36%),
+    conic-gradient(from 215deg at 78% 55%, #193326, #315c4c, #786346, #193326);
+  filter: blur(25px);
+  transform-origin: 74% 44%;
+}
+
+.hero-slats::after {
+  inset: 0;
+  --slat-width: clamp(16px, 2.5vw, 38px);
+  background:
+    linear-gradient(90deg, #14291f 0%, rgb(20 41 31 / 92%) 23%, rgb(20 41 31 / 48%) 57%, transparent 100%),
+    linear-gradient(0deg, #1e3428, transparent 36%),
+    repeating-linear-gradient(90deg,
+      rgb(3 17 12 / 44%) 0,
+      rgb(3 17 12 / 27%) calc(var(--slat-width) * 0.12),
+      rgb(240 224 170 / 15%) calc(var(--slat-width) * 0.37),
+      rgb(240 224 170 / 3%) calc(var(--slat-width) * 0.66),
+      rgb(3 17 12 / 33%) var(--slat-width));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-slats::before {
+    animation: hero-glass-drift 18s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes hero-glass-drift {
+  from { transform: translate3d(0, -2%, 0) rotate(-5deg); }
+  to { transform: translate3d(-6%, 4%, 0) rotate(8deg) scale(1.08); }
+}
+
+@media (max-width: 800px) {
+  .hero-slats::after {
+    background-color: rgb(15 33 24 / 18%);
+  }
+}
+
 .hero > .hero-cursor-glow {
   position: absolute;
   inset: 0;
