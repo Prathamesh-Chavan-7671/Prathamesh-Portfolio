@@ -1,0 +1,46 @@
+.skill-cloud {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+  gap: 12px;
+  max-width: 40rem;
+  margin: 0 auto clamp(2rem, 6vw, 4rem);
+  padding: 20px;
+  list-style: none;
+}
+
+.skill-cloud li {
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 9vw, 56px);
+  aspect-ratio: 1;
+  margin: auto;
+  border: 1px solid #d4c9a6;
+  border-radius: 14px;
+  background: #f3ebd0;
+  box-shadow: 0 5px 16px rgb(20 41 31 / 12%);
+}
+
+.skill-cloud img {
+  width: 66%;
+  height: 66%;
+  object-fit: contain;
+}
+
+.skill-cloud.is-sphere {
+  display: block;
+  width: min(100%, 29rem);
+  aspect-ratio: 1;
+  padding: 0;
+  background: radial-gradient(circle, rgb(120 179 145 / 16%), transparent 70%);
+}
+
+.skill-cloud.is-sphere li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%) translate(var(--logo-x), var(--logo-y)) scale(var(--logo-scale));
+  opacity: var(--logo-opacity);
+  z-index: var(--logo-depth);
+}

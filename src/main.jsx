@@ -6,16 +6,14 @@ import './portrait.css';
 import './mobile-portrait.css';
 import './security-graphic.css';
 import './three-portrait.css';
-import './project-motion.css';
-import AnimatedContent from './react-bits/AnimatedContent.jsx';
-import BorderGlow from './react-bits/BorderGlow.jsx';
-import GlareHover from './react-bits/GlareHover.jsx';
 import GradualBlur from './react-bits/GradualBlur.jsx';
 import ScrollFloat from './react-bits/ScrollFloat.jsx';
 import ScrollReveal from './react-bits/ScrollReveal.jsx';
 import TargetCursor from './react-bits/TargetCursor.jsx';
 import './portfolio-effects.css';
-import ProjectMotionGraphic from './ProjectMotionGraphic.jsx';
+import SecurityTerminal from './SecurityTerminal.jsx';
+import Highlighter from './Highlighter.jsx';
+import InteractiveGridPattern from './InteractiveGridPattern.jsx';
 const PortraitAura = React.lazy(() => import('./PortraitAura.jsx'));
 const GlowCursor = React.lazy(() => import('./react-bits/GlowCursor.jsx'));
 
@@ -33,41 +31,29 @@ const getPointerEffects = () => pointerEffects.matches;
 const getReducedMotion = () => motionPreference.matches;
 
 const projects = [
-  { title: 'Knowledge-sharing platform', label: 'Editorial platform · Multi-role workflows', copy: 'Publishing and peer review in one structured workspace for contributors, editors and reviewers.', image: 'https://ik.imagekit.io/c9crfmeez/Pharminsight.png', href: 'work/knowledge-sharing-platform/', tone: 'sage', graphic: 'publishing' },
-  { title: 'NRG LIMS', label: 'Research operations · Lab lifecycle', copy: 'One platform for inventory, procurement, samples, safety and research publications.', image: 'https://ik.imagekit.io/c9crfmeez/LIMS%20Dashboard.png', href: 'work/inventory-management-app/', tone: 'moss', graphic: 'lab' },
-  { title: 'Exhibitor Engagement Program', label: 'Event engagement · Progressive web app', copy: 'QR-led booth engagement with quizzes and a live leaderboard for conference teams.', image: 'https://ik.imagekit.io/c9crfmeez/event.png', href: 'work/event-gamification-app/', tone: 'cream', graphic: 'event' },
-  { title: 'BRIDGE', label: 'Innovation platform · Industry collaboration', copy: 'A collaboration space for Mumbai Biocluster and industry partners, built for deployment.', image: 'https://ik.imagekit.io/c9crfmeez/Bridge.png', href: 'work/bridge-innovation-platform/', tone: 'forest', graphic: 'bridge' }
+  { title: 'Knowledge-sharing platform', label: 'Editorial platform · Multi-role workflows', copy: 'Publishing and peer review in one structured workspace for contributors, editors and reviewers.', image: 'https://ik.imagekit.io/c9crfmeez/Pharminsight.png', href: 'work/knowledge-sharing-platform/', tone: 'sage' },
+  { title: 'NRG LIMS', label: 'Research operations · Lab lifecycle', copy: 'One platform for inventory, procurement, samples, safety and research publications.', image: 'https://ik.imagekit.io/c9crfmeez/LIMS%20Dashboard.png', href: 'work/inventory-management-app/', tone: 'moss' },
+  { title: 'Exhibitor Engagement Program', label: 'Event engagement · Progressive web app', copy: 'QR-led booth engagement with quizzes and a live leaderboard for conference teams.', image: 'https://ik.imagekit.io/c9crfmeez/event.png', href: 'work/event-gamification-app/', tone: 'cream' },
+  { title: 'BRIDGE', label: 'Innovation platform · Industry collaboration', copy: 'A collaboration space for Mumbai Biocluster and industry partners, built for deployment.', image: 'https://ik.imagekit.io/c9crfmeez/Bridge.png', href: 'work/bridge-innovation-platform/', tone: 'forest' }
 ];
 const roles = [['2024 — present', 'SEO & Digital Growth', 'Biologics Workshop'], ['2024 — present', 'Full Stack Software Engineer', 'Mumbai Biocluster'], ['2024', 'Frontend Developer Intern', 'Essentia.dev']];
 
 const rise = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: .65, ease: [0.22, 1, 0.36, 1] } } };
 
-function ProjectGrid({ reduced, interactive }) {
-  const cards = projects.map(project => {
-    const visual = <div className="project-visual">
-      <img src={project.image} alt="" loading="lazy" />
-      <ProjectMotionGraphic type={project.graphic} reduced={reduced} />
-    </div>;
-
-    const card = <a href={project.href} className={`project-card ${project.tone}`}>
-      {interactive ? <GlareHover className="project-glare" width="100%" borderRadius="18px"
-        glareColor="#f4dc9e" glareOpacity={0.19} rimGlint={false}>{visual}</GlareHover> : visual}
-      <p>{project.label}</p>
-      <h3>{project.title}</h3>
-      <span>{project.copy}</span>
-      <b className="project-target">View project <i>↗</i></b>
-    </a>;
-
-    return interactive ?
-      <BorderGlow key={project.title} className="project-border" borderRadius={24} glowColor="48 70 77"
-        glowRadius={16} glowIntensity={0.7} fillOpacity={0} backgroundColor="transparent"
-        colors={['#dfc77d', '#80b38c', '#d9dfb2']}>{card}</BorderGlow> :
-      <React.Fragment key={project.title}>{card}</React.Fragment>;
-  });
-
-  return reduced ? <div className="project-grid">{cards}</div> :
-    <AnimatedContent className="project-grid" distance={22} duration={0.58}
-      stagger={0.08} threshold={0.08}>{cards}</AnimatedContent>;
+function ProjectGrid() {
+  return (
+    <div className="project-grid">
+      {projects.map(project => (
+        <a key={project.title} href={project.href} className={`project-card ${project.tone}`}>
+          <div className="project-image"><img src={project.image} alt="" loading="lazy" /></div>
+          <p>{project.label}</p>
+          <h3>{project.title}</h3>
+          <span>{project.copy}</span>
+          <b>View project <i>↗</i></b>
+        </a>
+      ))}
+    </div>
+  );
 }
 
 function App() {
@@ -83,12 +69,12 @@ function App() {
     <GradualBlur target="page" position="top" height={76} layers={5} strength={0.45} tint="#1e342835" zIndex={19} />
     <nav className="nav"><a className="brand" href="#top"><b>PC</b><span>Prathamesh Chavan</span></a><div className="navlinks"><a href="#work">Work</a><a href="#experience">Experience</a><a href="#security">Security</a><a href="writing/">Writing</a></div><a className="navcta" href="#contact">Start a project</a></nav>
     <section className="hero" id="top" ref={heroRef}><div className="hero-slats" aria-hidden="true" />
-      <div className="hero-noise" />
+      <InteractiveGridPattern containerRef={heroRef} interactive={interactive} />
       {interactive && <Suspense fallback={null}>
         <GlowCursor className="hero-cursor-glow" aria-hidden="true" color="#78b391" secondaryColor="#d4b16e"
           intensity={0.58} trailWidth={2} linger={0.65} glow={0.55} hotspot={0.35}
           quality="low" maxDevicePixelRatio={1} clickBurst={false} />
-      </Suspense>}<div className="hero-copy"><motion.p variants={rise} initial={reduced ? false : "hidden"} animate="show" className="eyebrow">Full-stack engineer · Mumbai, India</motion.p><motion.h1 variants={rise} initial={reduced ? false : "hidden"} animate="show" transition={{ delay: .08 }}>Production platforms,<br /><em>built to hold up.</em></motion.h1><motion.p variants={rise} initial={reduced ? false : "hidden"} animate="show" transition={{ delay: .16 }} className="lede">I design and ship web software from interface to deployment, with security-minded engineering built in from the start.</motion.p><motion.div variants={rise} initial={reduced ? false : "hidden"} animate="show" transition={{ delay: .24 }} className="hero-actions"><a className="button primary" href="#contact">Start a project</a><a className="textlink" href="#work">Explore selected work</a></motion.div></div><motion.div className="portrait-stage" style={reduced ? {} : { y: portraitY, rotateZ: portraitRotate }} initial={reduced ? false : { opacity: 0, scale: .92, rotateY: -12 }} animate={{ opacity: 1, scale: 1, rotateY: 0 }} transition={{ duration: .9, delay: .16, ease: [0.22, 1, 0.36, 1] }} whileHover={reduced ? {} : { rotateY: 5, rotateX: -3, y: -8 }}><Suspense fallback={null}><PortraitAura /></Suspense><div className="portrait-shadow" /><div className="portrait-rings" /><div className="portrait-frame"><img src="https://ik.imagekit.io/c9crfmeez/prathu.png" alt="Prathamesh Chavan" /></div><div className="portrait-glass"><span>BUILD</span><span>SHIP</span><span>SECURE</span></div></motion.div><div className="hero-meta"><span>Available for new work</span><span>Next.js · PostgreSQL · Docker</span></div></section>
+      </Suspense>}<div className="hero-copy"><motion.p variants={rise} initial={reduced ? false : "hidden"} animate="show" className="eyebrow">Full-stack engineer · Mumbai, India</motion.p><motion.h1 variants={rise} initial={reduced ? false : "hidden"} animate="show" transition={{ delay: .08 }}>Production platforms,<br /><em><Highlighter action="underline" color="#d9b26b" reduced={reduced} isView>built to hold up.</Highlighter></em></motion.h1><motion.p variants={rise} initial={reduced ? false : "hidden"} animate="show" transition={{ delay: .16 }} className="lede">I design and ship web software from interface to deployment, with security-minded engineering built in from the start.</motion.p><motion.div variants={rise} initial={reduced ? false : "hidden"} animate="show" transition={{ delay: .24 }} className="hero-actions"><a className="button primary" href="#contact">Start a project</a><a className="textlink" href="#work">Explore selected work</a></motion.div></div><motion.div className="portrait-stage" style={reduced ? {} : { y: portraitY, rotateZ: portraitRotate }} initial={reduced ? false : { opacity: 0, scale: .92, rotateY: -12 }} animate={{ opacity: 1, scale: 1, rotateY: 0 }} transition={{ duration: .9, delay: .16, ease: [0.22, 1, 0.36, 1] }} whileHover={reduced ? {} : { rotateY: 5, rotateX: -3, y: -8 }}><Suspense fallback={null}><PortraitAura /></Suspense><div className="portrait-shadow" /><div className="portrait-rings" /><div className="portrait-frame"><img src="https://ik.imagekit.io/c9crfmeez/prathu.png" alt="Prathamesh Chavan" /></div><div className="portrait-glass"><span>BUILD</span><span>SHIP</span><span>SECURE</span></div></motion.div><div className="hero-meta"><span>Available for new work</span><span>Next.js · PostgreSQL · Docker</span></div></section>
     <section className="proof" aria-label="Portfolio highlights">{[['2+', 'Years in production'], ['3', 'Live platforms shipped'], ['45.7%', 'Traffic growth delivered']].map(([number, label], i) => <motion.div key={label} initial={reduced ? false : { opacity: 0, scale: .86 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: .5 }} transition={{ delay: i * .1, type: 'spring', stiffness: 160, damping: 16 }} whileHover={reduced ? {} : { y: -5 }}><strong>{number}</strong><span>{label}</span></motion.div>)}</section>
     <section className="section work" id="work">
       <div className="section-head">
@@ -100,13 +86,18 @@ function App() {
           </ScrollFloat>}
         <a className="textlink project-target" href="work/">View all projects</a>
       </div>
-      <ProjectGrid reduced={reduced} interactive={interactive} />
+      <ProjectGrid />
     </section>
     <section className="section experience" id="experience"><div className="section-head"><p>02 / Experience</p><h2>Full-stack work, connected to real-world outcomes.</h2></div><div className="timeline">{roles.map(([date, role, company], i) => <motion.article key={role} initial={reduced ? false : { opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ delay: i * .1, duration: .5 }} whileHover={reduced ? {} : { x: 8 }}><span>{date}</span><div><h3>{role}</h3><p>{company}</p></div></motion.article>)}</div></section>
     <section className="section security" id="security"><div><p>03 / Security-minded delivery</p>{reduced ? <h2>Security is part of the build, not a follow-up task.</h2> :
       <ScrollReveal baseOpacity={0.72} baseRotation={0} blurStrength={2} stagger={0.035} wordAnimationEnd="bottom 72%">
         Security is part of the build, not a follow-up task.
-      </ScrollReveal>}<p className="lede">I am developing practical application-security skills alongside full-stack work—thinking about authentication, access control and safe data handling from the first implementation.</p><a className="button secondary" href="security/">Explore security work</a></div><motion.div className="security-visual" aria-hidden="true" initial={reduced ? false : { opacity: 0, scale: .85, rotate: -5 }} whileInView={{ opacity: 1, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .35 }} transition={{ type: 'spring', stiffness: 110, damping: 16 }}><div className="security-grid" /><svg viewBox="0 0 360 360" role="presentation"><circle className="ring ring-a" cx="180" cy="180" r="132" /><circle className="ring ring-b" cx="180" cy="180" r="92" /><path className="link" d="M65 180H132M228 180H294M180 65V132M180 228V295M100 100l47 47M260 100l-47 47M100 260l47-47M260 260l-47-47" /><path className="shield" d="M180 111l52 20v44c0 38-22 61-52 75-30-14-52-37-52-75v-44l52-20Z" /><path className="lock" d="M164 174v-12a16 16 0 0 1 32 0v12m-37 0h42v35h-42z" /></svg><span className="security-node node-auth">AUTH</span><span className="security-node node-rbac">RBAC</span><span className="security-node node-data">DATA</span><span className="security-node node-deploy">DEPLOY</span><span className="security-status"><i />controls active</span><i className="security-scan" /></motion.div></section>
+      </ScrollReveal>}<p className="lede">I am developing practical application-security skills alongside full-stack work—thinking about <Highlighter color="rgba(120, 179, 145, 0.28)" reduced={reduced} isView>authentication, access control and safe data handling</Highlighter> from the first implementation.</p><a className="button secondary" href="security/">Explore security work</a></div><motion.div className="security-visual" aria-hidden="true" initial={reduced ? false : { opacity: 0, scale: .85, rotate: -5 }} whileInView={{ opacity: 1, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .35 }} transition={{ type: 'spring', stiffness: 110, damping: 16 }}><div className="security-grid" /><svg viewBox="0 0 360 360" role="presentation"><circle className="ring ring-a" cx="180" cy="180" r="132" /><circle className="ring ring-b" cx="180" cy="180" r="92" /><path className="link" d="M65 180H132M228 180H294M180 65V132M180 228V295M100 100l47 47M260 100l-47 47M100 260l47-47M260 260l-47-47" />{!reduced && [
+          'M65 180H132', 'M295 180H228', 'M180 65V132', 'M180 295V228', 'M100 100l47 47', 'M260 100l-47 47', 'M100 260l47-47', 'M260 260l-47-47'
+        ].map(path => <path key={path} className="security-beam" d={path} pathLength="100" />)}
+        <path className="shield" d="M180 111l52 20v44c0 38-22 61-52 75-30-14-52-37-52-75v-44l52-20Z" /><path className="lock" d="M164 174v-12a16 16 0 0 1 32 0v12m-37 0h42v35h-42z" /></svg><span className="security-node node-auth">AUTH</span><span className="security-node node-rbac">RBAC</span><span className="security-node node-data">DATA</span><span className="security-node node-deploy">DEPLOY</span><span className="security-status"><i />controls active</span><i className="security-scan" /></motion.div>
+      <SecurityTerminal reduced={reduced} />
+    </section>
     <section className="section writing"><div className="section-head"><p>04 / Writing</p><h2>Notes from the work.</h2></div><a className="article" href="writing/endpoint-security-capacity-assessment/"><small>CASE STUDY · 14 NOVEMBER 2026</small><h3>From a Slow Phone to a GRC Risk Assessment: My First Learning Project</h3><span>Read the case study ↗</span></a></section>
     <section className="contact" id="contact"><p>05 / Contact</p><h2>Have a platform<br />to build?</h2><a href="mailto:prathameshchavan8652@gmail.com">prathameshchavan8652@gmail.com</a><span>Tell me what you need to build, improve or secure.</span></section>
     <footer>© 2026 Prathamesh Chavan <span><a href="skills/">Skills</a><a href="writing/">Writing</a><a href="https://www.linkedin.com/in/prathamesh-chavan-developer" rel="noreferrer">LinkedIn</a></span></footer>
